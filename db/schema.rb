@@ -10,10 +10,82 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_23_133726) do
+ActiveRecord::Schema.define(version: 2021_08_23_141452) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "activities", force: :cascade do |t|
+    t.string "address"
+    t.string "category"
+    t.text "description"
+    t.float "price"
+    t.integer "duration"
+    t.integer "day"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "flights", force: :cascade do |t|
+    t.string "departure"
+    t.string "arrival"
+    t.date "departure_date"
+    t.date "arrival_date"
+    t.float "price"
+    t.integer "duration"
+    t.boolean "departure_flight", default: false, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "hotels", force: :cascade do |t|
+    t.string "address"
+    t.integer "stars"
+    t.text "description"
+    t.float "price"
+    t.integer "day"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "trip_activities", force: :cascade do |t|
+    t.bigint "activity_id", null: false
+    t.bigint "trip_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["activity_id"], name: "index_trip_activities_on_activity_id"
+    t.index ["trip_id"], name: "index_trip_activities_on_trip_id"
+  end
+
+  create_table "trip_flights", force: :cascade do |t|
+    t.bigint "flight_id", null: false
+    t.bigint "trip_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["flight_id"], name: "index_trip_flights_on_flight_id"
+    t.index ["trip_id"], name: "index_trip_flights_on_trip_id"
+  end
+
+  create_table "trip_hotels", force: :cascade do |t|
+    t.bigint "hotel_id", null: false
+    t.bigint "trip_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["hotel_id"], name: "index_trip_hotels_on_hotel_id"
+    t.index ["trip_id"], name: "index_trip_hotels_on_trip_id"
+  end
+
+  create_table "trips", force: :cascade do |t|
+    t.date "start_date"
+    t.integer "duration"
+    t.string "destination"
+    t.integer "nb_people"
+    t.boolean "booked", default: false, null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_trips_on_user_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -27,4 +99,11 @@ ActiveRecord::Schema.define(version: 2021_08_23_133726) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "trip_activities", "activities"
+  add_foreign_key "trip_activities", "trips"
+  add_foreign_key "trip_flights", "flights"
+  add_foreign_key "trip_flights", "trips"
+  add_foreign_key "trip_hotels", "hotels"
+  add_foreign_key "trip_hotels", "trips"
+  add_foreign_key "trips", "users"
 end
