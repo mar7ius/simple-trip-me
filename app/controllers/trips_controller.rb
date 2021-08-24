@@ -38,6 +38,7 @@ class TripsController < ApplicationController
     set_trip
     authorize @trip
     @trip_flight = TripFlight.create!(trip: @trip, flight_id: params[:trip][:trip_flight_ids])
+
     if @trip_flight.save
       redirect_to step_two_trip_path(@trip)
     else

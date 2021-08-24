@@ -5,8 +5,6 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-Flight.destroy_all
-Activity.destroy_all
 
 Flight.create!(departure: "LAX",
               arrival: 'CDG',
@@ -33,23 +31,19 @@ Flight.create!(departure: "LML",
               departure_flight: true
             )
 
-
 Activity.create!(address: "Death Valley National Park",
-              stars: 5,
               description: 'Death Valley is the largest national park in the contiguous United States',
               price: 100.00,
               day: 1,
             )
 
 Activity.create!(address: "Golden Gate Bridge",
-              stars: 3,
               description: 'The Golden Gate Bridge is a suspension bridge spanning the Golden Gate',
               price: 50.00,
               day: 1,
             )
 
 Activity.create!(address: "Hollywood Walk of Fame",
-              stars: 4,
               description: 'Hollywood Chamber of Commerce is the awarding organization of the Hollywood Walk of Fame',
               price: 60.00,
               day: 1,
