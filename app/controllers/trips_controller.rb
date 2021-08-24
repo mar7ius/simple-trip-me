@@ -28,18 +28,24 @@ class TripsController < ApplicationController
     end
   end
 
-  def step_one
+  def step_one #new
     set_trip
-    @flight = Flight.new
+    @flight_departure = TripFlight.new
+    @flight_departure_list = Flight.where(departure_flight: true)
+    @flight_returning = TripFlight.new
+    @flight_returning_list = Flight.where(departure_flight: false)
+
     authorize @trip
   end
 
-  def flight_choice
+  def flight_choice #create
     set_trip
     authorize @trip
-    @trip_flight = TripFlight.create!(trip: @trip, flight_id: params[:trip][:trip_flight_ids])
+    raise
+    @trip_flight = TripFlight.create!(trip: @trip, flight: params[:trip][:trip_flight_ids][1])
 
     if @trip_flight.save
+
       redirect_to step_two_trip_path(@trip)
     else
       render :step_one
