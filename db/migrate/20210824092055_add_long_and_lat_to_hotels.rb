@@ -1,6 +1,6 @@
 class AddLongAndLatToHotels < ActiveRecord::Migration[6.0]
   def change
-    add_column :hotels, :long, :float
-    add_column :hotels, :lat, :float
+    add_column :hotels, :longitude, :float
+    add_column :hotels, :latitude, :float
   end
 end
