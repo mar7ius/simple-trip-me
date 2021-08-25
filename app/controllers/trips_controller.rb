@@ -3,9 +3,10 @@ require "json"
 require "amadeus"
 
 class TripsController < ApplicationController
-  skip_before_action :authenticate_user!, only: [:new, :test]
+  skip_before_action :authenticate_user!, only: [:test, :new]
 
   def test
+    # @trips = policy_scope(Trip)
     # @activities = Activity.all
     @test_coordinates = [
       {
