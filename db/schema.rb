@@ -39,7 +39,7 @@ ActiveRecord::Schema.define(version: 2021_08_24_102304) do
     t.boolean "departure_flight", default: false, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "compagnie_name"
+    t.string "flight_company"
     t.string "airport_iata_code"
   end
 
@@ -103,6 +103,8 @@ ActiveRecord::Schema.define(version: 2021_08_24_102304) do
     t.datetime "remember_created_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "first_name"
+    t.string "last_name"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
