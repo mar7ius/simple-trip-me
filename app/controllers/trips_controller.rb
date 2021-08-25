@@ -150,12 +150,40 @@ class TripsController < ApplicationController
 
   def step_one #new
     amadeus = Amadeus::Client.new({
-      client_id: "eswpB1iV5JFtkn4KWssBCAQsc4jdSQsh",
-      client_secret: "Q1PG0GhWGtDcmN4N",
-    })
-    result = amadeus.reference_data.urls.checkin_links.get(airlineCode: "BA")
-    parsing = JSON.parse(result.body)
-    # raise
+      client_id: 'eswpB1iV5JFtkn4KWssBCAQsc4jdSQsh',
+      client_secret: 'Q1PG0GhWGtDcmN4N'
+     })
+    result_d = amadeus.shopping.flight_offers_search.get(originLocationCode: 'PAR', destinationLocationCode: 'LAX', departureDate: '2021-11-01', adults: 1, nonStop: true)
+    parsing = JSON.parse(result_d.body)["data"].first(3)
+    parsing.each do |flight|
+      Flight.create(
+        duration: flight["itineraries"][0]["duration"],
+        departure: flight["itineraries"][0]["segments"][0]["departure"]["iataCode"],
+        arrival: flight["itineraries"][0]["segments"][0]["arrival"]["iataCode"],
+        compagnie_name: flight["itineraries"][0]["segments"][0]["carrierCode"],
+        departure_date: flight["itineraries"][0]["segments"][0]["departure"]["at"],
+        arrival_date: flight["itineraries"][0]["segments"][0]["arrival"]["at"],
+        departure_flight: true,
+        price: flight["price"]["total"].to_i,
+        airport_iata_code: flight["itineraries"][0]["segments"][0]["departure"]["iataCode"]
+      )
+    end
+    result_a = amadeus.shopping.flight_offers_search.get(originLocationCode: 'LAX', destinationLocationCode: 'PAR', departureDate: '2021-11-02', adults: 1, nonStop: true)
+    parsing = JSON.parse(result_a.body)["data"].first(3)
+    parsing.each do |flight|
+      Flight.create(
+        duration: flight["itineraries"][0]["duration"],
+        departure: flight["itineraries"][0]["segments"][0]["departure"]["iataCode"],
+        arrival: flight["itineraries"][0]["segments"][0]["arrival"]["iataCode"],
+        compagnie_name: flight["itineraries"][0]["segments"][0]["carrierCode"],
+        departure_date: flight["itineraries"][0]["segments"][0]["departure"]["at"],
+        arrival_date: flight["itineraries"][0]["segments"][0]["arrival"]["at"],
+        departure_flight: false,
+        price: flight["price"]["total"].to_i,
+        airport_iata_code: flight["itineraries"][0]["segments"][0]["departure"]["iataCode"]
+      )
+    end
+
     set_trip
     @flight_departure = TripFlight.new
     @flight_departure_list = Flight.where(departure_flight: true)
