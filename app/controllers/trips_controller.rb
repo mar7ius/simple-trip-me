@@ -1,6 +1,9 @@
+require 'json'
+require 'open-uri'
+require 'amadeus'
+
 class TripsController < ApplicationController
   skip_before_action :authenticate_user!, only: [ :new ]
-
 
   def index
     @trips = policy_scope(Trip)
@@ -29,6 +32,13 @@ class TripsController < ApplicationController
   end
 
   def step_one #new
+    amadeus = Amadeus::Client.new({
+      client_id: 'eswpB1iV5JFtkn4KWssBCAQsc4jdSQsh',
+      client_secret: 'Q1PG0GhWGtDcmN4N'
+     })
+    result = amadeus.reference_data.urls.checkin_links.get(airlineCode: 'BA')
+    parsing = JSON.parse(result.body)
+    raise
     set_trip
     @flight_departure = TripFlight.new
     @flight_departure_list = Flight.where(departure_flight: true)
@@ -41,8 +51,8 @@ class TripsController < ApplicationController
   def flight_choice #create
     set_trip
     authorize @trip
-    raise
     @trip_flight = TripFlight.create!(trip: @trip, flight: params[:trip][:trip_flight_ids][1])
+    raise
 
     if @trip_flight.save
 

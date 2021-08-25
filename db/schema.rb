@@ -39,7 +39,7 @@ ActiveRecord::Schema.define(version: 2021_08_24_102304) do
     t.boolean "departure_flight", default: false, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "compagnie_name"
+    t.string "flight_company"
     t.string "airport_iata_code"
   end
 
