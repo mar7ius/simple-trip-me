@@ -1,5 +1,5 @@
 require "json"
-# require "open-uri"
+require "open-uri"
 require "amadeus"
 
 class TripsController < ApplicationController
@@ -155,7 +155,7 @@ class TripsController < ApplicationController
     })
     result = amadeus.reference_data.urls.checkin_links.get(airlineCode: "BA")
     parsing = JSON.parse(result.body)
-    raise
+    # raise
     set_trip
     @flight_departure = TripFlight.new
     @flight_departure_list = Flight.where(departure_flight: true)
@@ -179,8 +179,18 @@ class TripsController < ApplicationController
   end
 
   def step_two
+    amadeus = Amadeus::Client.new({
+      client_id: "eswpB1iV5JFtkn4KWssBCAQsc4jdSQsh",
+      client_secret: "Q1PG0GhWGtDcmN4N",
+    })
     set_trip
     @activity = Activity.new
+    # response = amadeus.reference_data.urls.checkin_links.get(airlineCode: "BA")
+    # response = amadeus.get('v1/shopping/activities', latitude: '37.773972', longitude: '-122.431297', radius: '20')
+    # response = amadeus.get("/v2/reference-data/urls/checkin-links", airlineCode: "BA")
+    amadeus.shopping.activities(latitude: "37.773972", longitude: "-122.431297", radius: "20")
+
+    raise
     authorize @trip
   end
 
