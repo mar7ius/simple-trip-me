@@ -35,7 +35,7 @@ Flight.create(
   price: 2479.to_f,
 )
 
- ACTIVITIES = [{
+ACTIVITIES = [{
   name: "Yosemite",
   address: "California, États-Unis",
   longitude: -119.538329,
