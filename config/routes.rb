@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
   devise_for :users
   root to: 'pages#home'
+
+  get "dashboard", to: "pages#dashboard"
+
   resources :trips do
     member do
       get :step_one
@@ -10,9 +13,7 @@ Rails.application.routes.draw do
       get :step_three
       post :activity_choice
     end
-
   end
   post '/pages/search', to: 'pages#search'
-
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
