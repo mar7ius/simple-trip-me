@@ -3,7 +3,10 @@
     <%= simple_form_for @trip do |f| %>
       <%= f.input :departure_flight, collection: Trip::AIRPORTS %>
       <%= f.input :arrival_flight, collection: Trip::AIRPORTS %>
-      <%= f.input :start_date, label: 'Date of departure', placeholder: 'jj/mm/yyyy' %>
+
+      <%= f.input :start_date, as: :string, label: "Date of departure", placeholder: 'jj/mm/yyyy', required: false, input_html: {class: "datepicker"} %>
+
+      <%# <%= f.input :start_date, label: 'Date of departure', placeholder: 'jj/mm/yyyy' %>
       <%= f.input :duration, label: 'How many days?', placeholder: 'days' %>
       <%= f.hidden_field :destination, value: @destination %>
       <%# <%= f.input label: "rounded ?", type="checkbox" value="false" %>
