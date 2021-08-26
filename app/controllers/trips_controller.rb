@@ -18,16 +18,17 @@ class TripsController < ApplicationController
     @trip = Trip.new
     authorize @trip
     @destination = params[:destination]
+    # raise
   end
 
   def create
-    # raise
     @trip = Trip.new(trip_params)
     authorize @trip
     @trip.user = current_user
     departure = params[:trip][:departure_flight]
     arrival = params[:trip][:arrival_flight]
     departure_date = "#{params[:trip]["start_date(1i)"]}-#{params[:trip]["start_date(2i)"].length == 2 ? params[:trip]["start_date(2i)"] : "0" + params[:trip]["start_date(2i)"]}-#{params[:trip]["start_date(3i)"]}"#params[:trip]["start_date"]
+    # raise
     if @trip.save
       redirect_to step_one_trip_path(@trip, departure: departure, arrival: arrival, departure_date: departure_date)
     else
