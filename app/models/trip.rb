@@ -12,7 +12,7 @@ class Trip < ApplicationRecord
 
   has_many :trip_flights
   has_many :flights, through: :trip_flights
-  has_many :departure, through: :flights
+  # has_many :departure, through: :flights
 
   validates :start_date, :duration, :destination, presence: true
   # validates :, inclusion: { in: AIRPORTS }
