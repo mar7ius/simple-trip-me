@@ -129,34 +129,43 @@ class TripsController < ApplicationController
     authorize @trip
 
     # set origin point - actualy, san francisco
-    request = "37.773972%2C-122.431297%3A"
+    san_francisco = Activity.where(name: "San Francisco")
+    # that bitch return an array, need the index 0:
+    request = "#{san_francisco[0].latitude}%2C#{san_francisco[0].longitude}%3A"
 
     # Build string of Requested coordinates :
-    @trip.activities.map do |waypoint|
+    @trip.activities.each do |waypoint|
       request += "#{waypoint.latitude}%2C#{waypoint.longitude}%3A"
     end
-    request += "37.773972%2C-122.431297"
+    request += "#{san_francisco[0].latitude}%2C#{san_francisco[0].longitude}%3A"
 
     # API Call
     api_token = "UIJntIl4JdzoPutRU5kcksjwlzPSDGlR"
     tomtom_request = "https://api.tomtom.com/routing/1/calculateRoute/#{request}/json?computeBestOrder=true&routeRepresentation=polyline&routeType=fastest&avoid=unpavedRoads&travelMode=car&vehicleCommercial=false&key=#{api_token}"
     response_serialized = URI.open(tomtom_request).read
-    response = JSON.parse(response_serialized)
+    response = JSON.parse(response_serialized, object_class: OpenStruct)
 
 
-    # Transform data to be compatible with MapBox (set long first, latitude last)
-    routes = []
-    response["routes"][0]["legs"].each do |route|
-      routes << route["points"] #Array de Hash{latitude/longitude}
-    end
-    routes.map! do |route|
-      route.map! do |coordinates|
-        coordinates = coordinates.values.to_a
-        a = coordinates[0]
-        b = coordinates[1]
-        coordinates = [b, a]
+    # Exploiting results :
+    full_trip_road = [] # Contains all routes to pass to mapbox
+    @time_for_each_leg = [] # Contains time to drive betwenn each activities
+    @step_order = [] # Contains activites record in the right order
+
+    response.routes.first.legs.each do |leg|
+      @time_for_each_leg << leg.summary.travelTimeInSeconds
+      @step_order << [leg.points.first, leg.points.last]
+      leg.points.each do |coordinates|
+        full_trip_road << [coordinates.longitude, coordinates.latitude]
       end
     end
+
+    # Extract Order an activity name with returned optimized order
+    # @step_order contains OpenStruct data & it's coordinates
+    @step_order.map! do |step|
+      # step = Activity.where(latitude: step[0].latitude.truncate(3))
+      step = Activity.where("latitude > ? AND latitude < ?", step[0].latitude - 0.0001, step[0].latitude + 0.0001)
+    end.flatten!
+
 
     # Send dataset for markers
     @markers = @trip.activities.map do |waypoint|
@@ -166,7 +175,8 @@ class TripsController < ApplicationController
         info_window: render_to_string(partial: "shared/info_window", locals: { waypoint: waypoint })
       }
     end
-    @routes = routes.flatten(1)
+    # @routes = routes.flatten(1)
+    @routes = full_trip_road
   end
 
   def step_three

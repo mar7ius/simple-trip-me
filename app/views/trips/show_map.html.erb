@@ -4,3 +4,11 @@
      data-route="<%= @routes.to_json %>"
      data-mapbox-api-key="<%= ENV['MAPBOX_API_KEY'] %>">
 </div>
+
+<div class="container">
+<% @step_order.each do |step| %>
+  <h4>Step #<%= @step_order.index(step) + 1 %> <%= step.name %></h4>
+  <p>It will take you <%= Time.at(@time_for_each_leg[@step_order.index(step)]).utc.strftime("%H:%M:%S") %> to go to next step </p>
+<% end %>
+<h4>Last Step # Return to <%= @step_order.first.name %></h4>
+</div>
