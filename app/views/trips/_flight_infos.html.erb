@@ -1,0 +1,7 @@
+<div>
+  <h2><%= flight.departure %>-<%= flight.arrival %> Operated by <%= flight.compagnie_name %></h2>
+  <p><%= flight.departure_date.strftime("%d %B %Y") if flight.departure_date %> to <%= flight.arrival_date.strftime("%d %B %Y") if flight.arrival_date %></p>
+  <p><%= flight.price %> $</p>
+  <p><%= flight.flight_duration if flight.duration%></p>
+  <p>Direct</p>
+</div>
