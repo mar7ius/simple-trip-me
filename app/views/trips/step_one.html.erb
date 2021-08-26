@@ -1,0 +1,6 @@
+<%= @trip.destination %>
+
+<%= simple_form_for @trip, url: flight_choice_trip_path(@trip), method: :post do |f| %>
+  <%= f.association :trip_flights, as: :check_boxes, collection: Flight.all, label: 'pick your flight', class: '' %>
+  <%= f.submit class: 'btn btn-flat', label: "Choose your flight" %>
+<% end %>
