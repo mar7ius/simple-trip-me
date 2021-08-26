@@ -4,6 +4,7 @@ Rails.application.routes.draw do
 
   get "dashboard", to: "pages#dashboard"
 
+
   resources :trips do
     member do
       get :step_one
@@ -12,6 +13,7 @@ Rails.application.routes.draw do
       post :hotel_choice
       get :step_three
       post :activity_choice
+      get :show_map
     end
   end
   post '/pages/search', to: 'pages#search'
