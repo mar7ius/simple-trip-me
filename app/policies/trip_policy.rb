@@ -37,6 +37,10 @@ class TripPolicy < ApplicationPolicy
     true
   end
 
+  def show_map?
+    true
+  end
+
   def edit?
     record.user == user
   end

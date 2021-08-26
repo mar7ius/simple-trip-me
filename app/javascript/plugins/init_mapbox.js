@@ -7,7 +7,7 @@ const initMapbox = () => {
   const fitMapToMarkers = (map, markers) => {
     const bounds = new mapboxgl.LngLatBounds();
     markers.forEach(marker => bounds.extend([marker.lng, marker.lat]));
-    map.fitBounds(bounds, { padding: 70, maxZoom: 15, duration: 0 });
+    map.fitBounds(bounds, { padding: 100, maxZoom: 15, duration: 0 });
   };
 
   if (mapElement) { // only build a map if there's a div#map to inject into
@@ -30,9 +30,9 @@ const initMapbox = () => {
     fitMapToMarkers(map, markers);
 
     //Try to draw line
-    var route = JSON.parse(mapElement.dataset.route)
-    console.log(route)
-    var geojson = {
+    const route = JSON.parse(mapElement.dataset.route)
+    // console.log(route)
+    const geojson = {
       type: 'Feature',
       properties: {},
       geometry: {
@@ -65,11 +65,12 @@ const initMapbox = () => {
         },
         paint: {
           'line-color': '#000',
-          'line-width': 6,
-          'line-opacity': 0.75
+          'line-width': 5,
+          'line-opacity': 0.6
         }
       });
 
+      // Add a circle to the origne point
       map.addLayer({
         id: 'point',
         type: 'circle',
@@ -83,8 +84,8 @@ const initMapbox = () => {
               geometry: {
                 type: 'Point',
                 coordinates: [
-                  -84.518399,
-                  39.134126,
+                  -122.431297,
+                  37.773972,
                 ]
               }
             }]

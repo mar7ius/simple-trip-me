@@ -10,7 +10,7 @@ Rails.application.routes.draw do
       post :hotel_choice
       get :step_three
       post :activity_choice
-      # get :test
+      get :show_map
     end
   end
   post "/pages/search", to: "pages#search"

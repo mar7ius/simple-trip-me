@@ -3,124 +3,7 @@ require "open-uri"
 require "amadeus"
 
 class TripsController < ApplicationController
-  skip_before_action :authenticate_user!, only: [:test, :new]
-
-  def test
-    # @trips = policy_scope(Trip)
-    # @activities = Activity.all
-    @test_coordinates = [
-      {
-        longitude: -119.538329,
-        latitude: 37.865101,
-        name: "Yosemite",
-      },
-      {
-        longitude: -118.243685,
-        latitude: 34.052234,
-        name: "Los Angeles",
-      },
-      {
-        longitude: -116.881828,
-        latitude: 36.513879,
-        name: "Death Valley",
-      },
-      {
-        longitude: -115.139830,
-        latitude: 36.169941,
-        name: "Las Vegas",
-      },
-      {
-        longitude: -110.173479,
-        latitude: 37.004245,
-        name: "Monument Valley",
-      },
-
-    ]
-
-    @test_route_json = [
-      [
-        -84.518399,
-        39.134126,
-      ],
-      [
-        -84.51841,
-        39.133781,
-      ],
-      [
-        -84.520024,
-        39.133456,
-      ],
-      [
-        -84.520321,
-        39.132597,
-      ],
-      [
-        -84.52085,
-        39.128019,
-      ],
-      [
-        -84.52036,
-        39.127901,
-      ],
-      [
-        -84.52094,
-        39.122783,
-      ],
-      [
-        -84.52022,
-        39.122713,
-      ],
-      [
-        -84.520768,
-        39.120841,
-      ],
-      [
-        -84.519639,
-        39.120268,
-      ],
-      [
-        -84.51233,
-        39.114141,
-      ],
-      [
-        -84.512652,
-        39.11311,
-      ],
-      [
-        -84.512399,
-        39.112216,
-      ],
-      [
-        -84.513232,
-        39.112084,
-      ],
-      [
-        -84.512127,
-        39.107599,
-      ],
-      [
-        -84.512904,
-        39.107489,
-      ],
-      [
-        -84.511692,
-        39.102682,
-      ],
-      [
-        -84.511987,
-        39.102638,
-      ],
-    ]
-
-    @markers = @test_coordinates.map do |waypoint|
-      {
-        lat: waypoint[:latitude],
-        lng: waypoint[:longitude],
-        info_window: render_to_string(partial: "shared/info_window", locals: { waypoint: waypoint }),
-      }
-    end
-    @routes = @test_route_json
-  end
+  skip_before_action :authenticate_user!, only: :new
 
   def index
     @trips = policy_scope(Trip)
@@ -149,11 +32,13 @@ class TripsController < ApplicationController
   end
 
   def step_one #new
+    TripFlight.destroy_all
+    Flight.destroy_all
     amadeus = Amadeus::Client.new({
-      client_id: 'eswpB1iV5JFtkn4KWssBCAQsc4jdSQsh',
-      client_secret: 'Q1PG0GhWGtDcmN4N'
-     })
-    result_d = amadeus.shopping.flight_offers_search.get(originLocationCode: 'PAR', destinationLocationCode: 'LAX', departureDate: '2021-11-01', adults: 1, nonStop: true)
+      client_id: "eswpB1iV5JFtkn4KWssBCAQsc4jdSQsh",
+      client_secret: "Q1PG0GhWGtDcmN4N",
+    })
+    result_d = amadeus.shopping.flight_offers_search.get(originLocationCode: "PAR", destinationLocationCode: "LAX", departureDate: "2021-11-01", adults: 1, nonStop: true)
     parsing = JSON.parse(result_d.body)["data"].first(3)
     parsing.each do |flight|
       Flight.create(
@@ -165,10 +50,10 @@ class TripsController < ApplicationController
         arrival_date: flight["itineraries"][0]["segments"][0]["arrival"]["at"],
         departure_flight: true,
         price: flight["price"]["total"].to_i,
-        airport_iata_code: flight["itineraries"][0]["segments"][0]["departure"]["iataCode"]
+        airport_iata_code: flight["itineraries"][0]["segments"][0]["departure"]["iataCode"],
       )
     end
-    result_a = amadeus.shopping.flight_offers_search.get(originLocationCode: 'LAX', destinationLocationCode: 'PAR', departureDate: '2021-11-02', adults: 1, nonStop: true)
+    result_a = amadeus.shopping.flight_offers_search.get(originLocationCode: "LAX", destinationLocationCode: "PAR", departureDate: "2021-11-02", adults: 1, nonStop: true)
     parsing = JSON.parse(result_a.body)["data"].first(3)
     parsing.each do |flight|
       Flight.create(
@@ -180,7 +65,7 @@ class TripsController < ApplicationController
         arrival_date: flight["itineraries"][0]["segments"][0]["arrival"]["at"],
         departure_flight: false,
         price: flight["price"]["total"].to_i,
-        airport_iata_code: flight["itineraries"][0]["segments"][0]["departure"]["iataCode"]
+        airport_iata_code: flight["itineraries"][0]["segments"][0]["departure"]["iataCode"],
       )
     end
 
@@ -196,10 +81,10 @@ class TripsController < ApplicationController
   def flight_choice #create
     set_trip
     authorize @trip
-    @trip_flight = TripFlight.create!(trip: @trip, flight: params[:trip][:trip_flight_ids][1])
-    raise
+    @trip_flight_departure = TripFlight.create!(trip: @trip, flight: Flight.find(params[:trip][:trip_flight_ids][1]))
+    @trip_flight_returning = TripFlight.create!(trip: @trip, flight: Flight.find(params[:trip][:trip_flight_ids][2]))
 
-    if @trip_flight.save
+    if @trip_flight_departure.save && @trip_flight_returning.save
       redirect_to step_two_trip_path(@trip)
     else
       render :step_one
@@ -207,30 +92,74 @@ class TripsController < ApplicationController
   end
 
   def step_two
-    amadeus = Amadeus::Client.new({
-      client_id: "eswpB1iV5JFtkn4KWssBCAQsc4jdSQsh",
-      client_secret: "Q1PG0GhWGtDcmN4N",
-    })
     set_trip
-    @activity = Activity.new
-    # response = amadeus.reference_data.urls.checkin_links.get(airlineCode: "BA")
-    # response = amadeus.get('v1/shopping/activities', latitude: '37.773972', longitude: '-122.431297', radius: '20')
-    # response = amadeus.get("/v2/reference-data/urls/checkin-links", airlineCode: "BA")
-    amadeus.shopping.activities(latitude: "37.773972", longitude: "-122.431297", radius: "20")
-
-    raise
+    @trip_activities = TripActivity.new
     authorize @trip
   end
 
   def activity_choice
+    TripActivity.destroy_all
     set_trip
     authorize @trip
-    @trip_activity = TripActivity.create!(trip: @trip, activity_id: params[:trip][:trip_activity_ids])
-    if @trip_activity.save
-      redirect_to step_three_trip_path(@trip)
+    choosen_activities_ids = params[:trip][:trip_activity_ids].reject!(&:empty?)
+    choosen_activities_ids.each do |activity_id|
+      @activity = Activity.find(activity_id)
+      @trip_activity = TripActivity.create!(trip: @trip, activity: @activity)
+      @trip_activity.save
+    end
+    if @trip.activities.count == choosen_activities_ids.count
+      # redirect_to step_three_trip_path(@trip)
+      redirect_to show_map_trip_path(@trip)
     else
       render :step_two
     end
+  end
+
+  ## DISPLAY MAP WITH ACTIVITIES AND ROUTE :
+
+  def show_map
+    set_trip
+    authorize @trip
+
+    # set origin point - actualy, san francisco
+    request = "37.773972%2C-122.431297%3A"
+
+    # Build string of Requested coordinates :
+    @trip.activities.map do |waypoint|
+      request += "#{waypoint.latitude}%2C#{waypoint.longitude}%3A"
+    end
+    request += "37.773972%2C-122.431297"
+
+    # API Call
+    api_token = "UIJntIl4JdzoPutRU5kcksjwlzPSDGlR"
+    tomtom_request = "https://api.tomtom.com/routing/1/calculateRoute/#{request}/json?computeBestOrder=true&routeRepresentation=polyline&routeType=fastest&avoid=unpavedRoads&travelMode=car&vehicleCommercial=false&key=#{api_token}"
+    response_serialized = URI.open(tomtom_request).read
+    response = JSON.parse(response_serialized)
+
+
+    # Transform data to be compatible with MapBox (set long first, latitude last)
+    routes = []
+    response["routes"][0]["legs"].each do |route|
+      routes << route["points"] #Array de Hash{latitude/longitude}
+    end
+    routes.map! do |route|
+      route.map! do |coordinates|
+        coordinates = coordinates.values.to_a
+        a = coordinates[0]
+        b = coordinates[1]
+        coordinates = [b, a]
+      end
+    end
+
+    # Send dataset for markers
+    @markers = @trip.activities.map do |waypoint|
+      {
+        lat: waypoint[:latitude],
+        lng: waypoint[:longitude],
+        info_window: render_to_string(partial: "shared/info_window", locals: { waypoint: waypoint })
+      }
+    end
+    @routes = routes.flatten(1)
   end
 
   def step_three
