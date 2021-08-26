@@ -1,7 +1,8 @@
 <div class="container mt-4">
   <div class="d-flex flex-column align-items-center justify-content-center">
-
     <%= simple_form_for @trip do |f| %>
+      <%= f.input :departure_flight, collection: Trip::AIRPORTS %>
+      <%= f.input :arrival_flight, collection: Trip::AIRPORTS %>
       <%= f.input :start_date, label: 'Date of departure', placeholder: 'jj/mm/yyyy' %>
       <%= f.input :duration, label: 'How many days?', placeholder: 'days' %>
       <%= f.hidden_field :destination, value: @destination %>
@@ -9,7 +10,5 @@
       <%= f.input :nb_people, label: "Number of traveller ?" %>
       <%= f.submit class: 'btn btn-flat' %>
     <% end %>
-
   </div>
-
 </div>

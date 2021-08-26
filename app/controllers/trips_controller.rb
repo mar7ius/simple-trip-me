@@ -21,11 +21,15 @@ class TripsController < ApplicationController
   end
 
   def create
+    # raise
     @trip = Trip.new(trip_params)
     authorize @trip
     @trip.user = current_user
+    departure = params[:trip][:departure_flight]
+    arrival = params[:trip][:arrival_flight]
+    departure_date = "#{params[:trip]["start_date(1i)"]}-#{params[:trip]["start_date(2i)"].length == 2 ? params[:trip]["start_date(2i)"] : "0" + params[:trip]["start_date(2i)"]}-#{params[:trip]["start_date(3i)"]}"#params[:trip]["start_date"]
     if @trip.save
-      redirect_to step_one_trip_path(@trip)
+      redirect_to step_one_trip_path(@trip, departure: departure, arrival: arrival, departure_date: departure_date)
     else
       render :new
     end
@@ -35,10 +39,11 @@ class TripsController < ApplicationController
     TripFlight.destroy_all
     Flight.destroy_all
     amadeus = Amadeus::Client.new({
-      client_id: "eswpB1iV5JFtkn4KWssBCAQsc4jdSQsh",
-      client_secret: "Q1PG0GhWGtDcmN4N",
-    })
-    result_d = amadeus.shopping.flight_offers_search.get(originLocationCode: "PAR", destinationLocationCode: "LAX", departureDate: "2021-11-01", adults: 1, nonStop: true)
+      client_id: 'eswpB1iV5JFtkn4KWssBCAQsc4jdSQsh',
+      client_secret: 'Q1PG0GhWGtDcmN4N'
+     })
+    result_d = amadeus.shopping.flight_offers_search.get(originLocationCode: params[:departure], destinationLocationCode: params[:arrival], departureDate: params[:departure_date], adults: 1, nonStop: true)
+
     parsing = JSON.parse(result_d.body)["data"].first(3)
     parsing.each do |flight|
       Flight.create(
@@ -81,6 +86,7 @@ class TripsController < ApplicationController
   def flight_choice #create
     set_trip
     authorize @trip
+
     @trip_flight_departure = TripFlight.create!(trip: @trip, flight: Flight.find(params[:trip][:trip_flight_ids][1]))
     @trip_flight_returning = TripFlight.create!(trip: @trip, flight: Flight.find(params[:trip][:trip_flight_ids][2]))
 

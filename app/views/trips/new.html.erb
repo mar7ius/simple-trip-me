@@ -1,9 +1,9 @@
-<h1>c'est la new</h1>
+<div class="container mt-4">
+  <div class="d-flex flex-column align-items-center justify-content-center">
 
-<p>Vous avez sélectionné : <%= @destination %></p>
+    <h1>Vous avez sélectionné : <%= @destination %></h1>
 
-<h2>Crée ton trip</h2>
-
-<p>formulaire de création de la first step</p>
-
-<%= render "form", trip: @trip, text: @text %>
+    <h2>Create your trip</h2>
+    <%= render "form", trip: @trip, text: @text %>
+  </div>
+</div>
