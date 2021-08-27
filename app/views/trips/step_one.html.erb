@@ -1,8 +1,8 @@
-<%= @trip.destination.capitalize %>
+<div class="container py-5 text-center ">
+<h2> Choose your flights</h2>
 
-<%= simple_form_for @trip, url: flight_choice_trip_path(@trip), method: :post do |f| %>
-  <div class="card-container">
-    <%= f.association :trip_flights, as: :check_boxes, collection: Flight.all, label_method: lambda { |flight| render("flight_infos", flight: flight)}, value_method: :id%>
-    <%= f.submit class: 'btn btn-flat', label: "Choose your flight" %>
-  </div>
-<% end %>
+  <%= simple_form_for @trip, url: flight_choice_trip_path(@trip), method: :post do |f| %>
+      <%= f.association :trip_flights, as: :check_boxes, legend_tag: false, collection: Flight.all, label_method: lambda { |flight| render("flight_infos", flight: flight)}, value_method: :id%>
+      <%= f.submit "Validate your flight", class: 'btn btn-outline-secondary rounded' %>
+  <% end %>
+</div>

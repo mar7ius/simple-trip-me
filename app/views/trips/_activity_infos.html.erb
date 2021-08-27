@@ -1,12 +1,16 @@
 <div class="card" style="width: 30vw;">
   <div style="position: relative;">
     <%= image_tag "image_#{activity.code_image}.png" %>
-    <h2 style="position: absolute;"><%= activity.name%></h2>
+
   </div>
-  <div class="container py-2 mt-4">
-  <h3><%= activity.category %></h3>
+  <div class="container py-2">
+  <h3 class=" text-center "><%= activity.name%></h3>
+  <h6><%= activity.category %></h6>
   <p><%= activity.description.truncate(100) %></p>
-  <h3><i class="fab fa-cc-visa"></i>  <%= activity.price %> $</h3>
-  <p><i class="fas fa-stopwatch"></i> <%= activity.duration%></p>
+  <div class="d-flex align-items-center justify-content-center">
+
+  <h5><i class="fas fa-money-bill-wav"></i>  <%= activity.price %> $</h5>
+  <h5><i class="fas fa-stopwatch"></i> <%= activity.duration%></h5>
+  </div>
   </div>
 </div>
