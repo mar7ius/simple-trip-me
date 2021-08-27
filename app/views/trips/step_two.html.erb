@@ -7,5 +7,5 @@
                       input_html: { class: "activity-selector" },
                       item_wrapper_class: 'activity-item',
                       collection: Activity.where.not(category: 'City'), label_method: lambda { |activity| render("activity_infos", activity: activity)  }, value_method: :id, class: '' %>
-     <%= f.submit "Validate your activities", class: 'btn ban-outline-secondary rounded' %>
+     <%= f.submit "Validate your activities", class: 'btn btn-outline-secondary rounded mb-5' %>
   <% end %>
