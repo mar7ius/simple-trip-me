@@ -1,4 +1,4 @@
-<div class="card border-success mb-3 text-center ">
+<div class="card-activity border-success mb-3 text-center ">
   <h2><%= flight.departure %>-<%= flight.arrival %> Operated by <%= flight.compagnie_name %></h2>
   <p><%= flight.departure_date.strftime("%d %B %Y") if flight.departure_date %> to <%= flight.arrival_date.strftime("%d %B %Y") if flight.arrival_date %></p>
   <p><%= flight.price %> $</p>
