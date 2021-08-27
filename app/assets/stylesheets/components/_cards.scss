@@ -32,16 +32,17 @@
   background-size: cover;
 }
 .inner {
-  height: 285px;
-  width: 450px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background:#e6f7ee;
-  opacity: 0.7;
-  box-sizing: border-box;
-  padding: 40px;
+    height: 285px;
+    width: 450px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: #e6f7ee;
+    opacity: 0.7;
+    box-sizing: border-box;
+    padding: 25px;
+
 }
 
 .trip_trip_activities {
@@ -93,5 +94,49 @@
 
 .activity-selector:checked + label {
   border-color: #10beca;
+}
 
+.form-group.check_boxes.optional.trip_trip_flights {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.card-flight {
+    height: 327px;
+    width: 346px;
+    /* position: relative; */
+    padding: 20px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: flex-end;
+    text-decoration: none;
+    background-size: cover;
+}
+
+.flight-selector {
+  position: absolute;
+  transform: scale(0);
+}
+
+.flight-selector + label {
+  cursor: pointer;
+  display: inline-block;
+  border: 2px solid #EBEBF0;
+  margin-bottom: 20px;
+  margin-right: 20px;
+}
+
+.form-check-input:checked + label {
+  border-color: #166977;
+}
+
+.font-plane {
+  font-size: 1.6rem;
+}
+
+.card-activities {
+  height: -webkit-fill-available;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
