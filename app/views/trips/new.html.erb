@@ -1,9 +1,7 @@
-<div class="container mt-4">
+<div class="container mt-5">
   <div class="d-flex flex-column align-items-center justify-content-center">
 
-    <h1>Vous avez sélectionné : <%= @destination %></h1>
-
-    <h2>Create your trip</h2>
+    <h2>The beginning of your trip to <%= @destination %></h2>
     <%= render "form", trip: @trip, text: @text %>
   </div>
 </div>
