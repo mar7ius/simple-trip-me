@@ -8,6 +8,7 @@
 @import "font-awesome-sprockets";
 @import "font-awesome";
 @import "flatpickr/dist/themes/material_blue";
+@import "select2/dist/css/select2";
 
 // Your CSS partials
 @import "components/index";
@@ -15,7 +16,7 @@
 
 a {
   text-decoration: none;
-  color: #151527;
+  color: #636369;
 
   &:hover {
     text-decoration: none;

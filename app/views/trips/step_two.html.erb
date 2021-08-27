@@ -1,6 +1,11 @@
-<p>Choose your activities in <%= @trip.destination %></p>
-
-<%= simple_form_for @trip, url: activity_choice_trip_path(@trip), method: :post do |f| %>
-  <%= f.association :trip_activities, as: :check_boxes, collection: Activity.where.not(category: 'city'), label: 'pick your activity' %>
-  <%= f.submit class: 'btn btn-flat', label: "Choose your activity" %>
-<% end %>
+<div class="container py-5 ">
+  <h2> Choose your activities in <%= @trip.destination.capitalize %></h2>
+</div>
+  <%= simple_form_for @trip, url: activity_choice_trip_path(@trip), method: :post do |f| %>
+    <%= f.association :trip_activities, as: :check_boxes,
+                      legend_tag: false,
+                      input_html: { class: "activity-selector" },
+                      item_wrapper_class: 'activity-item',
+                      collection: Activity.where.not(category: 'City'), label_method: lambda { |activity| render("activity_infos", activity: activity)  }, value_method: :id, class: '' %>
+    <%= f.submit class: 'btn btn-flat', label: "Continue" %>
+  <% end %>

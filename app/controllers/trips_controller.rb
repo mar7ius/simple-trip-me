@@ -29,7 +29,7 @@ class TripsController < ApplicationController
     arrival = params[:trip][:arrival_flight]
     departure_date = params[:trip][:start_date]
     # raise
-    if @trip.save
+    if @trip.save!
       redirect_to step_one_trip_path(@trip, departure: departure, arrival: arrival, departure_date: departure_date)
     else
       render :new

@@ -1,7 +1,13 @@
-<div class="card border-success mb-3 text-center ">
-  <h2><%= flight.departure %>-<%= flight.arrival %> Operated by <%= flight.compagnie_name %></h2>
-  <p><%= flight.departure_date.strftime("%d %B %Y") if flight.departure_date %> to <%= flight.arrival_date.strftime("%d %B %Y") if flight.arrival_date %></p>
-  <p><%= flight.price %> $</p>
-  <p><%= flight.flight_duration if flight.duration%></p>
-  <p>Direct</p>
-</div>
+
+  <div class="card-activity" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.1)), url(https://www.color-foods.com/wp-content/uploads/2014/10/mappemonde-gris.jpg)">
+    <div class="inner">
+      <h2> <i class="fas fa-plane-departure"></i>   <%= flight.departure %>   <i class="fas fa-long-arrow-alt-right"></i>   <%= flight.arrival %>   <i class="fas fa-plane-arrival"></i> </h2>
+      <p><%= flight.departure_date.strftime("%d %B %Y") if flight.departure_date %> to <%= flight.arrival_date.strftime("%d %B %Y") if flight.arrival_date %></p>
+      <p>Direct</p>
+      <p>Operated by <%= flight.compagnie_name %></p>
+      <div class="d-flex justify-content-between">
+        <p><i class="fas fa-money-check"> </i> </i><%= flight.price %> $ </p>
+        <p>  <i class="fas fa-stopwatch"></i> <%= flight.flight_duration if flight.duration%></p>
+      </div>
+    </div>
+  </div>
