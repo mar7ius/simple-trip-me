@@ -6,15 +6,15 @@
 }
 
 .card-text {
-    color: #0e0000;
-    font-weight: normal;
-    text-align: center;
+  color: #0e0000;
+  font-weight: normal;
+  text-align: center;
 }
 
 .card-title {
-    color: #0e0000;
-    font-weight: normal;
-    text-align: center;
+  color: #0e0000;
+  font-weight: normal;
+  text-align: center;
 }
 
 .card-activity {
@@ -41,18 +41,49 @@
   opacity: 0.7;
   box-sizing: border-box;
   padding: 40px;
+
+
+.trip_trip_activities {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-evenly;
 }
 
-.card-activity h1 {
-  color: #261a4e;
+.card img {
+  height: 20vh;
+  object-fit: cover;
+  width: 100%;
 }
 
-.h2, h3, h4, h5, h6 {
-  color: #1d0a61;
+.card h3,h4,h5,h6 {
+  color: rgb(12, 12, 12);
+  }
+.card h2 {
+  position: absolute;
+  top: 35%;
+  text-align: center;
+  width: 100%;
+  color: white;
+  text-shadow: 0 0 10px rgba(0,0,0,0.7);
+}
+.card-item {
+  display: inline-block;
 }
 
+.activity-selector {
+  position: absolute;
+  transform: scale(0);
+}
 
+.activity-selector + label {
+  cursor: pointer;
+  display: inline-block;
+  border: 2px solid #ebebf0;
+  margin-bottom: 5px;
+}
 
-.card-activity p {
-  color: #1b1c72;
+.activity-selector:checked + label {
+  border-color: #166977;
+
 }
