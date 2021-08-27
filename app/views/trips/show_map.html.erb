@@ -5,10 +5,32 @@
      data-mapbox-api-key="<%= ENV['MAPBOX_API_KEY'] %>">
 </div>
 
-<div class="container">
-<% @step_order.each do |step| %>
-  <h4>Step #<%= @step_order.index(step) + 1 %> <%= step.name %></h4>
-  <p>It will take you <%= Time.at(@time_for_each_leg[@step_order.index(step)]).utc.strftime("%H:%M:%S") %> to go to next step </p>
-<% end %>
-<h4>Last Step # Return to <%= @step_order.first.name %></h4>
+<div class="container mt-4 p-4">
+  <div class="text-align-center">
+    <h2>Your Trip's summary :</h2>
+  </div>
+  <div class="mt-4">
+    <p>Arriving at <%= Activity.find(@trip_summary[:originPointActivityId]).name %>'s Airport</p>
+  </div>
+  <div>
+    <p><strong>Step #1 :</strong></p>
+    <p><%= Activity.find(@trip_summary[:originPointActivityId]).name %> to <%= Activity.find(@trip_summary[:waypoint0ActivityId]).name %>
+      ( Driving time : <%= Time.at(@trip_summary[:travelTimeBetweenWaypoint].first[:originToWaypoint1]).utc.strftime("%H:%M:%S") %> )
+    </p>
+  </div>
+  <% (2...@trip_summary[:travelTimeBetweenWaypoint].first.count).to_a.each do |step_number| %>
+    <div>
+      <p><strong>Step #<%= step_number %></strong></p>
+      <p><%= Activity.find(@trip_summary["waypoint#{step_number - 2}ActivityId".to_sym]).name %> to <%= Activity.find(@trip_summary["waypoint#{step_number - 1}ActivityId".to_sym]).name %>
+        ( Driving time : <%= Time.at(@trip_summary[:travelTimeBetweenWaypoint].first["waypoint#{step_number - 1}To#{step_number}".to_sym]).utc.strftime("%H:%M:%S") %> )
+      </p>
+      </div>
+  <% end %>
+
+  <div>
+    <p><strong>Last Step:</strong></p>
+    <p><%= Activity.find(@trip_summary["waypoint#{@trip_summary[:travelTimeBetweenWaypoint].first.count - 2}ActivityId".to_sym]).name %> to <%= Activity.find(@trip_summary[:finalPointActivityId]).name %>
+    ( Driving time : <%= Time.at(@trip_summary[:travelTimeBetweenWaypoint].first[:lastWaypointToFinalPoint]).utc.strftime("%H:%M:%S") %> )
+    </p>
+  </div>
 </div>

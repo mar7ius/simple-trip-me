@@ -1,6 +1,6 @@
-<p>Choose your activities in<%= @trip.destination %></p>
+<p>Choose your activities in <%= @trip.destination %></p>
 
 <%= simple_form_for @trip, url: activity_choice_trip_path(@trip), method: :post do |f| %>
-  <%= f.association :trip_activities, as: :check_boxes, collection: Activity.all, label: 'pick your activity' %>
+  <%= f.association :trip_activities, as: :check_boxes, collection: Activity.where.not(category: 'city'), label: 'pick your activity' %>
   <%= f.submit class: 'btn btn-flat', label: "Choose your activity" %>
 <% end %>
