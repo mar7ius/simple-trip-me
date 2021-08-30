@@ -29,7 +29,6 @@ class TripsController < ApplicationController
     departure = params[:trip][:departure_flight]
     arrival = params[:trip][:arrival_flight]
 
-
     if @trip.save!
       redirect_to step_one_trip_path(@trip, departure: departure, arrival: arrival)
     else
@@ -161,6 +160,33 @@ class TripsController < ApplicationController
       end
     end
 
+    # # Fabrication d'un hash de data compilé complet // Essai 2:
+    # @trip_summary_temp = []
+    # @trip_summary = []
+
+    # response.optimizedWaypoints.each do |waypoint|
+    #   activity = Activity.find(@trip.activities[waypoint.optimizedIndex].id)
+    #   @trip_summary_temp << {
+    #     order: waypoint.providedIndex + 1,
+    #     activity_id: activity.id,
+    #     duration: activity.duration * 60,
+    #   }
+    # end
+
+    # (1...(response.routes.first.legs.count - 1)).to_a.each do |step|
+
+    #     paired_activity = @trip_summary_temp.shift(2)
+    #     paired_activity << {
+    #       from: paired_activity.first[:order],
+    #       to: paired_activity.last[:order],
+    #       travel_duration: response.routes.first.legs[step].summary.travelTimeInSeconds
+    #     }
+    #     @trip_summary << paired_activity
+
+    # end
+
+
+
     # Fabrication d'un hash de data compilé complet :
     @trip_summary = {}
     @trip_summary[:totalWaypoints] = 0
@@ -187,6 +213,43 @@ class TripsController < ApplicationController
 
     @trip_summary[:travelTimeBetweenWaypoint].first[:lastWaypointToFinalPoint] = response.routes.first.legs.last.summary.travelTimeInSeconds
 
+    @durations = []
+
+    @durations << @trip_summary[:travelTimeBetweenWaypoint].first[:originToWaypoint1]
+    (1..@trip_summary[:totalWaypoints]).to_a.each do |numb|
+      @durations << @trip_summary["waypoint#{numb}ActivityDuration".to_sym]
+      if @trip_summary[:travelTimeBetweenWaypoint].first.key?("waypoint#{numb}To#{numb + 1}".to_sym)
+        @durations << @trip_summary[:travelTimeBetweenWaypoint].first["waypoint#{numb}To#{numb + 1}".to_sym]
+      end
+    end
+    @durations << @trip_summary[:travelTimeBetweenWaypoint].first[:lastWaypointToFinalPoint]
+
+    @all_days = []
+    day_constant = 36_000 # Seconds
+
+    while @durations.any?
+      # binding.pry
+      remaining_time = day_constant
+      trip_day = []
+      while @durations.any? && (remaining_time - @durations.first).positive?
+        trip_day.push(@durations.first)
+        remaining_time = remaining_time - @durations.first
+        @durations.shift
+      end
+      if @durations.any? && @durations.first > day_constant
+        sliced_time = @durations.first - day_constant
+        @durations.shift
+        trip_day.push(day_constant)
+        @durations.unshift(sliced_time)
+      elsif @durations.any? && remaining_time > 120 * 60 # && @duration.first = trajet
+        sliced_time = @durations.first - remaining_time
+        @durations.shift
+        trip_day.push(remaining_time)
+        @durations.unshift(sliced_time)
+      end
+      @all_days.push(trip_day) if trip_day.any?
+    end
+    raise
     # Send dataset for markers
     @markers = @trip.activities.map do |waypoint|
       {
@@ -195,83 +258,6 @@ class TripsController < ApplicationController
         info_window: render_to_string(partial: "shared/info_window", locals: { waypoint: waypoint }),
       }
     end
-
-    @durations = []
-
-    @durations << @trip_summary[:travelTimeBetweenWaypoint].first[:originToWaypoint1]
-    (1..@trip_summary[:totalWaypoints]).to_a.each do |numb|
-      @durations << @trip_summary["waypoint##{numb}ActivityDuration".to_sym]
-      if @trip_summary[:travelTimeBetweenWaypoint].first.key?("waypoint#{numb}To#{numb + 1}".to_sym)
-        @durations << @trip_summary[:travelTimeBetweenWaypoint].first["waypoint#{numb}To#{numb + 1}".to_sym]
-      end
-    end
-    @durations << @trip_summary[:travelTimeBetweenWaypoint].first[:lastWaypointToFinalPoint]
-
-    @all_days = []
-    day_constant = 36.000 # Seconds
-
-    while @durations.any?
-      remaining_time = day_constant
-      trip_day = []
-      while (remaining_time - @durations.first).positive?
-        trip_day.push(@durations.first)
-        remaining_time -= @durations.first
-        @durations.shift
-      end
-      if @durations.first > day_constant
-        @durations.first -= day_constant
-        trip_day.push(day_constant)
-      elsif remaining_time > 120 # && @duration.first = trajet
-        trip_day.push(remaining_time)
-        @durations.first -= remaining_time
-      end
-      @all_days.push(trip_day)
-    end
-    # repartition par jours :
-
-    #   if originToFirstWaypoint < day_time
-    #     day += originToFirstWaypoint
-    #     until day + transitToNextPoint > day_time
-    #           day += transitToNextPoint
-    #           waypoint += 1
-    #     end
-    #   (2...@trip_summary[:travelTimeBetweenWaypoint].first.count)
-    #   if temps de trajet + activityWaypoint1duration < day_time
-    #       true : day = temps de trajet + activityWaypoint1duration
-    #       until day + transitToNextPoint > day_time
-    #           day += transitToNextPoint
-    #           waypoint += 1
-    #       end
-    #   else : day = temps de trajet & findHotel sur trajet originToWaypoint à moins de 2h de waypointNext + set day info
-    #
-    #
-    #
-    #
-    #         if temps de trajet + activityWaypoint1duration + trajetWaypoint1ToNext < day_time
-    #           if temps de trajet + activityWaypoint1duration + trajetWaypoint1ToNext + activityNewtWaypointDuration < day_time
-    #   else
-    #    findHotel sur trajet originToWaypoint à moins de 2h de waypoint1
-    #   end
-    #
-    #
-    #
-    # trajets = [1500,250,18078,280,12,244,421]
-    # activity = [900,480,850,240,90,20]
-    #
-    # day = 28800
-    # day_num = n
-    # remaining_day_time
-    # while remaining_day_time < day
-    #   if remaining_day_time + trajet[n] < day
-    #     remaining_day_time += trajet[n]
-    #     trajet.upshift(n)
-    #   end
-    #   if remaining_day_time + activity[n] < day
-    #     remaining_day_time += activity[n]
-    #     activity.upshift[n]
-    #   end
-    #
-    raise
   end
 
   def step_three
