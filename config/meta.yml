@@ -1,0 +1,5 @@
+meta_product_name: "Simple-Trip"
+meta_title: "Simple-Trip - Travel around the world with ease !"
+meta_description: "Through the Platform, Simple-Trip.me provides an online booking service for flights, activities and hotels, and allows to visualize the route."
+meta_image: "Road-trip.jpg" # should exist in `app/assets/images/`
+twitter_account: "@Lewagonparis"   # required for Twitter Cards
