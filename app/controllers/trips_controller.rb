@@ -185,8 +185,6 @@ class TripsController < ApplicationController
 
     # end
 
-
-
     # Fabrication d'un hash de data compilé complet :
     @trip_summary = {}
     @trip_summary[:totalWaypoints] = 0
@@ -229,14 +227,14 @@ class TripsController < ApplicationController
         type: "activity",
         id: @trip_summary["waypoint#{numb}ActivityId".to_sym],
         order: numb,
-        duration: @trip_summary["waypoint#{numb}ActivityDuration".to_sym]
+        duration: @trip_summary["waypoint#{numb}ActivityDuration".to_sym],
       }
       if @trip_summary[:travelTimeBetweenWaypoint].first.key?("waypoint#{numb}To#{numb + 1}".to_sym)
         @durations << {
           type: "ride",
           from_id: @trip_summary["waypoint#{numb}ActivityId".to_sym],
           to_id: @trip_summary["waypoint#{numb + 1}ActivityId".to_sym],
-          duration: @trip_summary[:travelTimeBetweenWaypoint].first["waypoint#{numb}To#{numb + 1}".to_sym]
+          duration: @trip_summary[:travelTimeBetweenWaypoint].first["waypoint#{numb}To#{numb + 1}".to_sym],
         }
       end
     end
@@ -245,43 +243,47 @@ class TripsController < ApplicationController
       from_id: @durations.last[:id],
       to_id: san_francisco[0].id,
       # id: san_francisco[0].id,
-      duration: @trip_summary[:travelTimeBetweenWaypoint].first[:lastWaypointToFinalPoint]
+      duration: @trip_summary[:travelTimeBetweenWaypoint].first[:lastWaypointToFinalPoint],
     }
 
     @all_days = []
     day_constant = 28_800 # Seconds
 
     while @durations.any?
-      # binding.pry
       remaining_time = day_constant
       trip_day = []
-      total_duration = {totalDayDuration: 0}
-      while @durations.any? && (remaining_time - @durations.first[:duration]).positive?
-        trip_day.push(@durations.first)
-        total_duration[:totalDayDuration] += @durations.first[:duration]
-        remaining_time = remaining_time - @durations.first[:duration]
-        @durations.shift
-      end
-      if @durations.any? && @durations.first[:duration] > day_constant
-        duration = @durations.first
-        duration[:duration] = day_constant
-        duration[:slicedInTwoDays] = true
-        total_duration[:totalDayDuration] += duration[:duration]
-        trip_day.push(duration)
-        @durations.first[:duration] = @durations.first[:duration] - day_constant
+      total_duration = { totalDayDuration: 0 }
 
-      elsif @durations.any? && remaining_time > 120 * 60 # && @duration.first = trajet
-        duration = @durations.first
+      if @durations.any? && @durations.first[:duration] > day_constant
+        # binding.pry
+        duration = @durations.first.dup
         duration[:duration] = remaining_time
         duration[:slicedInTwoDays] = true
         total_duration[:totalDayDuration] += duration[:duration]
         trip_day.push(duration)
-        @durations.first[:duration] = @durations.first[:duration] - remaining_time
+        @durations.first[:duration] -= remaining_time
+        remaining_time = 0
+
+        # elsif @durations.any? && remaining_time > 120 * 60 # && @duration.first = trajet
+        #   duration = @durations.first
+        #   duration[:duration] = remaining_time
+        #   duration[:slicedInTwoDays] = true
+        #   total_duration[:totalDayDuration] += duration[:duration]
+        #   trip_day.push(duration)
+        #   @durations.first[:duration] = @durations.first[:duration] - remaining_time
       end
+
+      while @durations.any? && (remaining_time - @durations.first[:duration]).positive?
+        trip_day.push(@durations.first)
+        total_duration[:totalDayDuration] += @durations.first[:duration]
+        remaining_time -= @durations.first[:duration]
+        @durations.shift
+      end
+
       trip_day.push(total_duration)
       @all_days.push(trip_day) if trip_day.any?
     end
-
+    # raise
     # Send dataset for markers
     @markers = @trip.activities.map do |waypoint|
       {

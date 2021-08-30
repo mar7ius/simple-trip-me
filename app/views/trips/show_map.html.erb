@@ -19,7 +19,7 @@
           <% @activity_from = Activity.find(step[:from_id]) %>
           <% @activity_to = Activity.find(step[:to_id]) %>
           <p>
-            Driving from <%= @activity_from.name %> to <%= @activity_to.name %>
+            Driving from <strong><%= @activity_from.name %></strong> to <strong><%= @activity_to.name %></strong>
             ( Driving time : <%= Time.at(step[:duration]).utc.strftime("%H:%M:%S") %> )
           </p>
         <% end %>
@@ -27,10 +27,10 @@
         <% if step[:type] == "activity" %>
           <% @activity = Activity.find(step[:id]) %>
 
-          <p>Activity: <%= @activity.name %></p>
-          <p>Duration: <%= @activity.duration %> minutes</p>
-          <p>Category: <%= @activity.category %></p>
-          <p>Description: <%= @activity.description %></p>
+          <h4><em>Activity: <%= @activity.name %></em></h4>
+          <p><strong>Duration:</strong> <%= @activity.duration %> minutes</p>
+          <p><strong>Category:</strong> <%= @activity.category %></p>
+          <p><strong>Description:</strong> <%= @activity.description %></p>
 
         <% end %>
 
