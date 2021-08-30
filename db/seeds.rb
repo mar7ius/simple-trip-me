@@ -81,7 +81,7 @@ ACTIVITIES = [{
   category: 'Amusement park',
 
   description: "Explore the magic of Disneyland Park and Disney California Adventure Park.",
-  duration: 360,
+  duration: 420,
   price: 210.to_f,
   code_image: "004"
   },
@@ -176,7 +176,7 @@ ACTIVITIES = [{
   longitude: -115.423827,
   latitude: 36.132108,
   category: 'National park',
-  description: "Red Rock Canyon is located 20 km west of Las Vegas in the state of Nevada in the southwestern United States. It belongs to the arid environment of the Mojave Desert. ",
+  description: "Red Rock Canyon is located 20 km west of Las Vegas in the state of Nevada in the southwestern United States. It belongs to the arid environment of the Mojave Desert.",
   duration: 180,
   price: 15.to_f,
   code_image: "012"
@@ -277,7 +277,7 @@ ACTIVITIES = [{
   price: 15.to_f,
   code_image: "020"
   },
-  
+
   {
   name: "Santa Monica Pier",
   address: "200 Santa Monica Pier, Santa Monica, CA 90401, United-States",
@@ -289,7 +289,7 @@ ACTIVITIES = [{
   price: 5.to_f,
   code_image: "021"
   },
-  
+
   {
   name: "SeaWorld - San Diego",
   address: "500 Sea World Dr., San Diego, CA 92109, United-States",
@@ -301,7 +301,7 @@ ACTIVITIES = [{
   price: 170.to_f,
   code_image: "022"
   },
-     
+
   {
   name: "Lombard Street",
   address: "1070 Lombard Street between Jones St and Hyde St, San Francisco, CA 94109, United-States",
@@ -313,7 +313,7 @@ ACTIVITIES = [{
   price: 00.to_f,
   code_image: "023"
   },
-  
+
   {
   name: "The Hammer Museum",
   address: "10899 Wilshire Blvd., Los Ángeles, CA 90024, United-States",
@@ -325,7 +325,7 @@ ACTIVITIES = [{
   price: 14.to_f,
   code_image: "024"
   },
-     
+
   {
   name: "Mammoth Mountain",
   address: "10001 Minaret Road Mammoth Lakes, CA 93546, United-States",
@@ -337,7 +337,7 @@ ACTIVITIES = [{
   price: 00.to_f,
   code_image: "025"
   },
-      
+
   {
   name: "Hoover Dam",
   address: "Boulder City, Nevada, United-States",
@@ -349,7 +349,7 @@ ACTIVITIES = [{
   price: 5.to_f,
   code_image: "026"
   },
-     
+
   {
   name: "Newport Landing Whale Watching",
   address: "309 Palm St A, Newport Beach, CA 92661, United-States ",
@@ -361,7 +361,7 @@ ACTIVITIES = [{
   price: 34.to_f,
   code_image: "027"
   },
-      
+
   {
   name: "Excursion to Muir Woods and the vineyards",
   address: "955 School Street Napa CA 94559, United-States",
@@ -373,7 +373,7 @@ ACTIVITIES = [{
   price: 260.to_f,
   code_image: "028"
   },
-     
+
   {
   name: "Monterey & Carmel Tours",
   address: "3378-3404 17 Mile Dr, Pebble Beach, CA 93953, United-States",
@@ -386,7 +386,7 @@ ACTIVITIES = [{
   code_image: "029"
   },
 
-     
+
   {
   name: "Tyrolean traverse on Catalina Island",
   address: "217 Metropole Ave, Avalon, CA 90704, United-States",
