@@ -1,0 +1,45 @@
+
+.container-form {
+  font-family: "Noto Sans TC", sans-serif, "Helvetica", "sans-serif";
+  color: #255853;
+  width: 70vw;
+  top: 300px;
+  position: relative;
+  border-radius: 8px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.1);
+  /* margin-left: 200px; */
+  /* margin-right: 300px; */
+  /* padding: 0px; */
+  /* text-align: left; */
+  /* display: flex; */
+  /* flex-direction: column; */
+  /* align-content: center; */
+  /* align-items: stretch; */
+  background: white;
+  margin: 0 auto;
+
+}
+.row {
+  display: flexbox;
+}
+
+.nb-people-input{
+  width: 75px;
+  margin-left: 10px;
+}
+.nb-people-label{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-bottom: 0 !important;
+}
+
+.select2-selection__rendered {
+  line-height: 33px !important;
+}
+.select2-container .select2-selection--single {
+  height: 38px !important;
+}
+.select2-selection__arrow {
+  height: 34px !important;
+}

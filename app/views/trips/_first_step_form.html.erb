@@ -1,0 +1,29 @@
+<div class="container-form p-4 vw-70">
+
+  <%= simple_form_for trip do |f| %>
+    <div>
+      <%= f.input :nb_people, label: '<i class="fas fa-user-alt"></i>'.html_safe,
+                  label_html: {class: 'nb-people-label'},
+                  wrapper_html: {class: 'd-flex'},
+                  input_html: {class: 'nb-people-input'} %>
+      <%# <%= f.input label: "rounded ?", type="checkbox" value="false" %>
+    </div>
+    <div class="d-flex justify-content-around">
+        <%= f.input :departure_flight, input_html: { class: 'select2'}, collection: Trip::CITIES_ORIGIN,
+        label: false, prompt: "Paris" %>
+
+        <%= f.input :arrival_flight, input_html: { class: 'select2'}, collection: Trip::CITIES_DESTINATION,
+        label: false, prompt: "California" %>
+
+        <%= f.input :start_date, as: :string, label: "Date of departure", placeholder: 'jj/mm/yyyy', required: false, input_html: {class: "datepicker"},
+        label: false %>
+
+        <%= f.input :duration, label: 'How many days?', placeholder: 'days',
+        label: false %>
+    </div>
+    <div class="d-flex justify-content-center">
+    <%= f.submit "Start your trip", class: 'btn btn-koral' %>
+    </div>
+  <% end %>
+
+</div>

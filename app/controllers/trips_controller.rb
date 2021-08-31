@@ -24,10 +24,11 @@ class TripsController < ApplicationController
 
   def create
     @trip = Trip.new(trip_params)
+    @trip.destination = "Californie"
     authorize @trip
     @trip.user = current_user
-    departure = params[:trip][:departure_flight]
-    arrival = params[:trip][:arrival_flight]
+    departure = params[:trip][:departure_flight] == 'Paris' ? 'PAR' : 'TLS'
+    arrival = params[:trip][:arrival_flight] == 'Los Angeles' ? 'LAX' : 'SFO'
 
     if @trip.save!
       redirect_to step_one_trip_path(@trip, departure: departure, arrival: arrival)

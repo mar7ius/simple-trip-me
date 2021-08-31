@@ -1,6 +1,8 @@
 class Trip < ApplicationRecord
   AIRPORTS_ORIGIN = ["PAR", "TLS"]
-  AIRPORTS_DESTINATION = ["SFO", "LAX", "LAS"]
+  CITIES_ORIGIN = ["Paris", "Toulouse"]
+  AIRPORTS_DESTINATION = ["SFO", "LAX"]
+  CITIES_DESTINATION = ["San Francisco", "Los Angeles"]
   attr_accessor :departure_flight, :arrival_flight
 
   belongs_to :user

@@ -1,6 +1,6 @@
 .btn-ghost {
-  color: #faf6f6;
-  border: 1px solid #f7f4f4;
+  color: #255853;
+  background:#f7f4f4;
   padding: 8px 24px;
   border-radius: 50px;
   font-weight: lighter;
@@ -11,4 +11,15 @@
 .btn-outline-dark {
   border-radius: 50px;
   height: 32px;
+}
+
+.btn-koral {
+  border: 1px solid #fcfcfc;
+  padding: 8px 24px;
+  border-radius: 50px;
+  font-weight: lighter;
+  opacity: 0.6;
+  transition: opacity 0.3s ease;
+  color: #E6F7EE;
+  background: #FD7B60;
 }
