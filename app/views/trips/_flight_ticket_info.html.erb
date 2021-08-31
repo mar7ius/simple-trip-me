@@ -1,0 +1,18 @@
+
+<div class="bgSizeContain">
+  <div class="top-infos">
+    <h2><%= flight.departure %></h2>
+  <%=image_tag("plane.svg", width: 50, class:'margin-to-plane' )%>
+    <h2><%= flight.arrival %></h2>
+  </div>
+
+  <p class="ticket-dates"><%= flight.departure_date.strftime("%d %B %Y") if flight.departure_date %> to <%= flight.arrival_date.strftime("%d %B %Y") if flight.arrival_date %></p>
+  <div class="ticket-duration">
+    <p>  <i class="fas fa-stopwatch"></i> <%= flight.flight_duration if flight.duration%></p>
+    <p>Direct</p>
+  </div>
+  <div class="bottom-infos">
+    <p class="ticket-price"><i class="fas fa-money-check"> </i> </i><%= flight.price %> $ </p>
+    <p>Operated by <%= flight.compagnie_name %></p>
+  </div>
+</div>

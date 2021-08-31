@@ -140,3 +140,49 @@
   flex-direction: column;
   justify-content: space-between;
 }
+
+.bgSizeContain {
+  width: 490px;
+  height: 240px;
+  padding: 30px;
+  text-align: center;
+  background-image: url('ticket.svg');
+  background-size: contain;
+  color: #000;
+  &.active {
+    opacity: 0.3;
+  }
+}
+.top-infos {
+  display: flex;
+  justify-content: space-around;
+  margin: 0
+}
+
+.bottom-infos {
+  display: flex;
+  justify-content: space-around;
+  p {
+    margin: 0;
+  }
+}
+
+.ticket-price {
+  font-size: 25px;
+  margin-bottom: 0;
+}
+
+.ticket-dates{
+  color: $turquoise;
+  margin: 5px;
+}
+
+.ticket-duration {
+  p {
+    color: rgb(138, 130, 130);
+   margin: 5px;
+  }
+}
+.margin-to-plane {
+  margin-top: -15px;
+}
