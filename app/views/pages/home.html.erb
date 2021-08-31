@@ -1,47 +1,35 @@
-<div class="banner" style="background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url(https://voyage-onirique.com/wp-content/uploads/2021/01/Diaporama-nature-.jpg);">
-   <div class="container py-5">
-    <h1>Simple trip me <strong></h1>
-      <span id="mySpan" style="font-size: 30px;"></span>
-      <script type="text/javascript">
-      function extraire() {
-      character = message.substring(I, I=I+1) ;
-        if ( character == "-" &&  message.substr(I, 5) == "stop-" ) {
-          character = "<br>" ;
-          I = I + 5;
-          }
-          mySpan.innerHTML += character;
-        if ( I < message.length ) setTimeout(extraire, 100);
-        }
-        I = 0 ;
-        message = "-stop- Travel around the world with ease !";
-        extraire();
-      </script>
-
-    <form novalidate="novalidate" class="simple_form search" action="/trips/new" method="get">
-      <div class="search-form-control form-group">
-          <select class="form-control select2 required" name="destination" id="selected_destination">
-            <option value="california">California</option>
-            <option value="tuscany">Tuscany</option>
-            <option value="cyclades">Cyclades</option>
-          </select>
-          <button name="button" type="submit" class="btn btn-outline-dark">
-            Lets'go
-          </button>
-        </div>
-      </form>
+<div class="banner" style= "background-image: url(<%= asset_path 'Rectangle_57.jpg'%>)">
+   <div class="container py-4">
+    <h1> <strong> <span style="color:turquoise">Travel</span> around the world with ease <strong> </h1>
+     <p>Compute the best and optimized trip based on your choices and offer you the ability to get the highly personalized experience, in one click</p>
   </div>
+  <%= render "trips/first_step_form", trip: @trip %>
 </div>
+<h4 class="text pt-5 pl-5 pr-5">Latest destinations</h4>
 <div class="cards-home py-5">
   <div class="card-category" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(https://langtra.com/wp-content/uploads/2017/11/californie-une.jpg)">
     California
+    <a class="btn btn-ghost" href="#">56 activities</a>
   </div>
   <div class="card-category" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(https://www.donatello.fr/wp-content/uploads/2020/12/abc17vcm0hq0uyo-540x600.jpg)">
     Tuscany
+    <a class="btn btn-ghost" href="#">47 activities</a>
   </div>
   <div class="card-category" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(https://www.guidesulysse.com/images/destinations/iStock-509678134.jpg)">
     Cyclades
+    <a class="btn btn-ghost" href="#">53 activities</a>
   </div>
-    <div class="card-category" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(https://media.routard.com/image/80/8/pt104159.1312808.w430.jpg)">
+  <div class="card-category" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(https://media.routard.com/image/80/8/pt104159.1312808.w430.jpg)">
     Wild Coast
+    <a class="btn btn-ghost" href="#">44 activities</a>
+  </div>
+  <div class="card-category" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(https://cdn.futura-sciences.com/buildsv6/images/mediumoriginal/d/8/c/d8c9ac4820_57829_030114-galerie9-1610.jpg)">
+    Utah
+    <a class="btn btn-ghost" href="#">24 activities</a>
+  </div>
+  <div class="card-category" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(https://geo.img.pmdstatic.net/fit/http.3A.2F.2Fprd2-bone-image.2Es3-website-eu-west-1.2Eamazonaws.2Ecom.2Fgeo.2F2019.2F05.2F29.2F415b9c13-bf23-48d0-a066-b65b5a5864ee.2Ejpeg/1150x647/background-color/ffffff/quality/70/canada-20-choses-a-faire-au-royaume-des-grands-espaces.jpg)">
+    Canada
+    <a class="btn btn-ghost" href="#">34 activities</a>
   </div>
 </div>
+<h5 class="text-right  pb-5 pl-5 pr-5">See all destinations <i class="fas fa-caret-right"></i></h5>

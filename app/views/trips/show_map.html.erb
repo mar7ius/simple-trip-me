@@ -1,49 +1,18 @@
-<div id="map"
-     style="width: 100%; height: 600px;"
-     data-markers="<%= @markers.to_json %>"
-     data-markers_hotels="<%= @markers_hotels.to_json %>"
-     data-route="<%= @routes.to_json %>"
-     data-mapbox-api-key="<%= ENV['MAPBOX_API_KEY'] %>">
-</div>
-
-<div class="container mt-4 p-4">
-  <div class="text-align-center">
-    <h2>Your Trip's summary :</h2>
-  </div>
-  <p>Arriving at <%= Activity.find(@trip_summary[:originPointActivityId]).name %>'s Airport</p>
-  <% @all_days.each_with_index do |day, index| %>
-        <h3 style="color: black;">Day n° <%= day.last[:day] %> (total duration: <%= Time.at(day[-2][:totalDayDuration]).utc.strftime("%H:%M:%S") %>)</h3>
-    <div class="p-4">
-      <% day.each do |step| %>
-
-        <% if step[:type] == "ride" %> <%#&& ((step[:from] || step[:to]) != "origin")><%>
-          <% @activity_from = Activity.find(step[:from_id]) %>
-          <% @activity_to = Activity.find(step[:to_id]) %>
-          <p>
-            Driving from <strong><%= @activity_from.name %></strong> to <strong><%= @activity_to.name %></strong>
-            ( Driving time : <%= Time.at(step[:duration]).utc.strftime("%H:%M:%S") %> )
-          </p>
-        <% end %>
-
-        <% if step[:type] == "activity" %>
-          <% @activity = Activity.find(step[:id]) %>
-
-          <h4><em>Activity: <%= @activity.name %></em></h4>
-          <p><strong>Duration:</strong> <%= @activity.duration %> minutes</p>
-          <p><strong>Category:</strong> <%= @activity.category %></p>
-          <p><strong>Description:</strong> <%= @activity.description %></p>
-
-        <% end %>
-
-        <%# <% if step[:type] == "ride" && step[:to] == "origin" %>
-
-      <% end %>
-      <h5><em>Your hotel for the night :</em></h4>
-      <% @hotel = Hotel.find(TripHotel.where(trip: @trip, day: day.last[:day])[0].hotel_id) %>
-      <p><%= @hotel.name %></p>
-      <p><%= @hotel.address %></p>
-      <p><%= @hotel.rating %></p>
-      <div style="background-image: url(<%= @hotel.img_link %>); width: 250px; height: 250px; object-fit: cover;"></div>
+<div class="d-flex">
+  <div class="container mt-4 p-4">
+    <div class="text-align-center">
+      <h2>Your Trip's summary :</h2>
     </div>
-  <% end %>
+    <p>Arriving at <%= Activity.find(@trip_summary[:originPointActivityId]).name %>'s Airport</p>
+    <% @all_days.each_with_index do |day, index| %>
+      <%= render 'trips/day', day: day, index: index %>
+    <% end %>
+  </div>
+
+  <div id="map"
+      style="width: 100%; height: 600px;"
+      data-markers="<%= @markers.to_json %>"
+      data-route="<%= @routes.to_json %>"
+      data-mapbox-api-key="<%= ENV['MAPBOX_API_KEY'] %>">
+  </div>
 </div>

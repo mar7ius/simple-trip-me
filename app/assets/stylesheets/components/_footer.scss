@@ -1,28 +1,38 @@
 .footer {
   background:#c9ead9;
+  background-image: -moz-element(0,0,0,0.1);
+  height: 140px;
   backdrop-filter: blur(8px);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
-  height: 100px;
+  opacity: 0.4;
   padding: 15px 50px;
-  color: rgba(9, 51, 54, 0.8);
+
+}
+
+.footer-text {
+    height: 114px;
+    color: rgba(9, 51, 54, 0.8);
+    font-size: 24px;
 }
 .footer-links {
   display: flex;
   align-items: center;
 }
 .footer-links a {
-  color: rgba(26, 66, 134, 0.8);
-  opacity: 0.15;
+  color: #255853;
+
   text-decoration: none;
-  font-size: 24px;
+
   padding: 0px 10px;
 }
 .footer-links a:hover {
   opacity: 1;
 }
-.footer .fa-heart {
-  color: #D23333;
+
+.footer-copyright {
+    color: rgba(9, 51, 54, 0.8);
+    font-size: 20px;
 }
