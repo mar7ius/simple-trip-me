@@ -160,31 +160,6 @@ class TripsController < ApplicationController
       end
     end
 
-    # # Fabrication d'un hash de data compilé complet // Essai 2:
-    # @trip_summary_temp = []
-    # @trip_summary = []
-
-    # response.optimizedWaypoints.each do |waypoint|
-    #   activity = Activity.find(@trip.activities[waypoint.optimizedIndex].id)
-    #   @trip_summary_temp << {
-    #     order: waypoint.providedIndex + 1,
-    #     activity_id: activity.id,
-    #     duration: activity.duration * 60,
-    #   }
-    # end
-
-    # (1...(response.routes.first.legs.count - 1)).to_a.each do |step|
-
-    #     paired_activity = @trip_summary_temp.shift(2)
-    #     paired_activity << {
-    #       from: paired_activity.first[:order],
-    #       to: paired_activity.last[:order],
-    #       travel_duration: response.routes.first.legs[step].summary.travelTimeInSeconds
-    #     }
-    #     @trip_summary << paired_activity
-
-    # end
-
     # Fabrication d'un hash de data compilé complet :
     @trip_summary = {}
     @trip_summary[:totalWaypoints] = 0
@@ -283,7 +258,47 @@ class TripsController < ApplicationController
       trip_day.push(total_duration)
       @all_days.push(trip_day) if trip_day.any?
     end
-    # raise
+
+    # Hotel with amadeus:
+    # amadeus = Amadeus::Client.new({
+    #   client_id: "nXHIAKb8yz6m3otvA1MGO2ETNK3I0gtm",
+    #   client_secret: "tTW6I4texIOPcBLr",
+    # })
+    # hotel = amadeus.shopping.hotel_offers.get(
+    #   latitude: Activity.find(@all_days.first[-2][:to_id]).latitude,
+    #   longitude: Activity.find(@all_days.first[-2][:to_id]).longitude,
+    #   checkInDate: @trip.start_date,
+    #   checkOutDate: @trip.start_date + 1.days,
+    #   radius: 15,
+    #   radiusUnit: "KM",
+    #   ratings: "4,3,2,1",
+    #   includeClosed: true,
+    #   sort: "DISTANCE",
+    # )
+    # parsing_hotel = JSON.parse(hotel.body)["data"].first
+
+    # @hotel = Hotel.create(
+    #   address: "#{parsing_hotel["hotel"]["address"]["lines"].first}, #{parsing_hotel["hotel"]["address"]["postalCode"]} #{parsing_hotel["hotel"]["address"]["cityName"].downcase.capitalize}, #{parsing_hotel["hotel"]["address"]["stateCode"]}",
+    #   stars: ,
+    #   description: parsing_hotel["hotel"]["description"],
+    #   price: ,
+    #   day: ,
+    #   longitude: parsing_hotel["hotel"]["longitude"],
+    #   latitude: parsing_hotel["hotel"]["latitude"],
+    #   name: parsing_hotel["hotel"]["name"],
+    # )
+
+    # Hotel with tomtom :
+    poiID = ""
+    poiDetailsUrl = "https://api.tomtom.com/search/2/poiDetails.json?key=UIJntIl4JdzoPutRU5kcksjwlzPSDGlR&id=#{poiID}"
+    poiDetailSerialized = URI.open(poiDetailsUrl).read
+    poiDetail = JSON.parse(poiDetailSerialized)
+
+    poiIdPhoto = ""
+    poiPhotoUrl = "https://api.tomtom.com/search/2/poiPhoto?key=UIJntIl4JdzoPutRU5kcksjwlzPSDGlR&id=#{poiIdPhoto}"
+
+    raise
+
     # Send dataset for markers
     @markers = @trip.activities.map do |waypoint|
       {
