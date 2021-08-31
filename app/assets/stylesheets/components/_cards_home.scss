@@ -2,7 +2,7 @@
   background-size: cover;
   background-position: center;
   height: 198px;
-  width: 411px;
+  min-width: 340px;
   top: 300px;
   display: flex;
   justify-content: flex-start;
@@ -45,6 +45,7 @@
   grid-template-columns: 1fr 1fr 1fr;
   grid-gap: 16px;
   justify-items: center;
+  padding: 0 40px;
 }
 // Large devices (desktops, 992px and up)
 @media (max-width: 992px) {

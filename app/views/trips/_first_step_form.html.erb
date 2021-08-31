@@ -10,10 +10,10 @@
     </div>
     <div class="d-flex justify-content-around">
         <%= f.input :departure_flight, input_html: { class: 'select2'}, collection: Trip::CITIES_ORIGIN,
-        label: false, prompt: "Paris" %>
+        label: false, selected: "Paris" %>
 
         <%= f.input :arrival_flight, input_html: { class: 'select2'}, collection: Trip::CITIES_DESTINATION,
-        label: false, prompt: "California" %>
+        label: false, selected: "San Francisco" %>
 
         <%= f.input :start_date, as: :string, label: "Date of departure", placeholder: 'jj/mm/yyyy', required: false, input_html: {class: "datepicker"},
         label: false %>
