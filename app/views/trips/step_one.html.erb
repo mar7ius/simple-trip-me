@@ -2,8 +2,8 @@
 
   <h1 class="center-choose">Choose your flights</h1>
   <div class="arrival-departure">
-    <h2>Departure</h2>
-    <h2>Arrival</h2>
+    <h2>Ongoing Flight:</h2>
+    <h2>Returning Flight:</h2>
   </div>
   <%= simple_form_for @trip, url: flight_choice_trip_path(@trip), method: :post do |f| %>
     <div class="card-container">
