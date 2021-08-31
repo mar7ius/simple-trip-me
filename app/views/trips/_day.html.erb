@@ -1,0 +1,39 @@
+<div id="accordion" class="card-day">
+  <div class="card">
+    <div class="card-header" id="heading<%= index %>">
+      <h5 class="mb-0">
+        <button class="btn btn-link" data-toggle="collapse" data-target="#collapse<%= index %>" aria-expanded="true" aria-controls="collapse<%= index %>">
+          <h3 style="color: black;">Day n° <%= index + 1 %> (total duration: <%= Time.at(day.last[:totalDayDuration]).utc.strftime("%H:%M:%S") %>)</h3>
+        </button>
+      </h5>
+    </div>
+
+    <div id="collapse<%= index %>" class="collapse <%= index == 0 ? 'show' : ''%>" aria-labelledby="heading<%= index %>" data-parent="#accordion">
+      <div class="card-body">
+      <% day.each do |step| %>
+        <% if step[:type] == "ride" %> <%#&& ((step[:from] || step[:to]) != "origin")><%>
+          <% @activity_from = Activity.find(step[:from_id]) %>
+          <% @activity_to = Activity.find(step[:to_id]) %>
+          <p>
+            Driving from <strong><%= @activity_from.name %></strong> to <strong><%= @activity_to.name %></strong>
+            ( Driving time : <%= Time.at(step[:duration]).utc.strftime("%H:%M:%S") %> )
+          </p>
+        <% end %>
+
+        <% if step[:type] == "activity" %>
+          <% @activity = Activity.find(step[:id]) %>
+
+          <h4><em>Activity: <%= @activity.name %></em></h4>
+          <p><strong>Duration:</strong> <%= @activity.duration %> minutes</p>
+          <p><strong>Category:</strong> <%= @activity.category %></p>
+          <p><strong>Description:</strong> <%= @activity.description %></p>
+
+        <% end %>
+
+        <%# <% if step[:type] == "ride" && step[:to] == "origin" %>
+
+      <% end %>
+      </div>
+    </div>
+  </div>
+</div>
