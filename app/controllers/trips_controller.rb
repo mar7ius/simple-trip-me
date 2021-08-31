@@ -289,14 +289,23 @@ class TripsController < ApplicationController
     # )
 
     # Hotel with tomtom :
-    poiID = ""
-    poiDetailsUrl = "https://api.tomtom.com/search/2/poiDetails.json?key=UIJntIl4JdzoPutRU5kcksjwlzPSDGlR&id=#{poiID}"
-    poiDetailSerialized = URI.open(poiDetailsUrl).read
-    poiDetail = JSON.parse(poiDetailSerialized)
 
-    poiIdPhoto = ""
-    poiPhotoUrl = "https://api.tomtom.com/search/2/poiPhoto?key=UIJntIl4JdzoPutRU5kcksjwlzPSDGlR&id=#{poiIdPhoto}"
+    #activity_lat
+    #activity_long
+    # hotel_url = "https://api.tomtom.com/search/2/search/hotel.json?limit=5&lat=#{activity_lat}&lon=#{activty_long}&radius=1000&categorySet=7314&key=#{api_token}"
+    # hotel_serialized = URI.open(hotel_url).read
+    # hotel_detail = JSON.parse(hotel_serialized)
 
+    # poi_id = ""
+    # poi_detail_url = "https://api.tomtom.com/search/2/poiDetails.json?key=#{api_token}&id=#{poi_id}"
+    # poi_detail_serialized = URI.open(poi_detail_url).read
+    # poiDetail = JSON.parse(poi_detail_serialized)
+
+    # poi_idPhoto = ""
+    # poiPhotoUrl = "https://api.tomtom.com/search/2/poiPhoto?key=#{api_token}&id=#{poi_idPhoto}"
+    # poiPhoto = URI.open(poiPhotoUrl).read
+
+    find_hotel(Activity.find(@all_days.first[-2][:to_id]).latitude, Activity.find(@all_days.first[-2][:to_id]).longitude)
     raise
 
     # Send dataset for markers
@@ -350,5 +359,36 @@ class TripsController < ApplicationController
 
   def trip_params
     params.require(:trip).permit(:start_date, :duration, :destination, :nb_people)
+  end
+
+  def find_hotel(activity_lat, activity_long)
+    api_token = "UIJntIl4JdzoPutRU5kcksjwlzPSDGlR"
+    hotel_url = "https://api.tomtom.com/search/2/search/hotel.json?limit=5&lat=#{activity_lat}&lon=#{activity_long}&radius=1000&categorySet=7314&key=#{api_token}"
+    hotel_serialized = URI.open(hotel_url).read
+    hotel_detail = JSON.parse(hotel_serialized)
+
+    hotel_detail["results"].keep_if { |result| result.key?("dataSources") }
+
+    poi_id = hotel_detail["results"].first["dataSources"]["poiDetails"].first["id"]
+    poi_detail_url = "https://api.tomtom.com/search/2/poiDetails.json?key=#{api_token}&id=#{poi_id}"
+    poi_detail_serialized = URI.open(poi_detail_url).read
+    poi_detail = JSON.parse(poi_detail_serialized)
+
+    poi_id_photo = poi_detail["result"]["photos"].first["id"]
+    poi_photo_url = "https://api.tomtom.com/search/2/poiPhoto?key=#{api_token}&id=#{poi_id_photo}"
+    # poi_photo = URI.open(poi_photo_url).read
+
+    @hotel = Hotel.new(
+      address: "#{hotel_detail["results"].first["address"]["freeformAddress"]}, United-States",
+      rating: poi_detail["result"]["rating"]["value"],
+      description: poi_detail["result"]["description"],
+      price: "#{(50..120).to_a.sample}.#{(1..99).to_a.sample}".to_f,
+      longitude: hotel_detail["results"].first["position"]["lon"],
+      latitude: hotel_detail["results"].first["position"]["lat"],
+      name: hotel_detail["results"].first["poi"]["name"],
+      img_link: poi_photo_url,
+    )
+
+    TripHotel.create!(trip: @trip, hotel: Hotel.last) if @hotel.save
   end
 end
