@@ -36,7 +36,7 @@ gem 'font-awesome-sass'
 gem 'simple_form'
 gem "pundit"
 
-gem "rest-client", "~> 2.1"
+# gem "rest-client", "~> 2.1"
 
 group :development, :test do  gem 'pry-byebug'
   gem 'pry-rails'
