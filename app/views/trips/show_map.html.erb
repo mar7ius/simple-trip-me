@@ -11,7 +11,7 @@
   </div>
   <p>Arriving at <%= Activity.find(@trip_summary[:originPointActivityId]).name %>'s Airport</p>
   <% @all_days.each_with_index do |day, index| %>
-        <h3 style="color: black;">Day n° <%= index + 1 %> (total duration: <%= Time.at(day.last[:totalDayDuration]).utc.strftime("%H:%M:%S") %>)</h3>
+        <h3 style="color: black;">Day n° <%= day.last[:day] %> (total duration: <%= Time.at(day[-2][:totalDayDuration]).utc.strftime("%H:%M:%S") %>)</h3>
     <div>
       <% day.each do |step| %>
 
