@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_26_093150) do
+ActiveRecord::Schema.define(version: 2021_08_31_103510) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,7 +21,6 @@ ActiveRecord::Schema.define(version: 2021_08_26_093150) do
     t.text "description"
     t.float "price"
     t.integer "duration"
-    t.integer "day"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.float "longitude"
@@ -46,15 +45,15 @@ ActiveRecord::Schema.define(version: 2021_08_26_093150) do
 
   create_table "hotels", force: :cascade do |t|
     t.string "address"
-    t.integer "stars"
     t.text "description"
     t.float "price"
-    t.integer "day"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.float "longitude"
     t.float "latitude"
     t.string "name"
+    t.string "img_link"
+    t.float "rating"
   end
 
   create_table "trip_activities", force: :cascade do |t|
@@ -62,6 +61,7 @@ ActiveRecord::Schema.define(version: 2021_08_26_093150) do
     t.bigint "trip_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "day"
     t.index ["activity_id"], name: "index_trip_activities_on_activity_id"
     t.index ["trip_id"], name: "index_trip_activities_on_trip_id"
   end
@@ -80,6 +80,7 @@ ActiveRecord::Schema.define(version: 2021_08_26_093150) do
     t.bigint "trip_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "day"
     t.index ["hotel_id"], name: "index_trip_hotels_on_hotel_id"
     t.index ["trip_id"], name: "index_trip_hotels_on_trip_id"
   end

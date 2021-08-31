@@ -130,167 +130,46 @@ class TripsController < ApplicationController
     authorize @trip
 
     # set origin point - actualy, san francisco
-    san_francisco = Activity.where(name: "San Francisco")
-    # that bitch return an array, need the index 0:
+    @san_francisco = Activity.where(name: "San Francisco") # return an array, need the index 0:
+
     waypoints = []
 
-    origin_point = "#{san_francisco[0].latitude}%2C#{san_francisco[0].longitude}%3A"
+    origin_point = "#{@san_francisco[0].latitude}%2C#{@san_francisco[0].longitude}%3A"
     # Build string of Requested coordinates :
     @trip.activities.each do |activity|
       waypoints << "#{activity.latitude}%2C#{activity.longitude}%3A"
     end
 
     trip_request = origin_point + waypoints.join + origin_point
+    tomtom_api_call(trip_request)
 
-    # API Call
-    api_token = "UIJntIl4JdzoPutRU5kcksjwlzPSDGlR"
-    tomtom_request = "https://api.tomtom.com/routing/1/calculateRoute/#{trip_request}/json?computeBestOrder=true&routeRepresentation=polyline&routeType=fastest&avoid=unpavedRoads&travelMode=car&vehicleCommercial=false&key=#{api_token}"
-    response_serialized = URI.open(tomtom_request).read
-    response = JSON.parse(response_serialized, object_class: OpenStruct)
+    set_trip_summary
+    day_distribution
+    find_hotels_for_each_day
 
-    # ----------------------
-    # add response error handeling by response.respond_to?(:routes) / else : render activity 'no routes find'
-    # -----------------------
-
-    # Exploiting results :
-    @routes = [] # Contains all routes to pass to mapbox
-
-    response.routes.first.legs.each do |leg|
-      leg.points.each do |coordinates|
-        @routes << [coordinates.longitude, coordinates.latitude]
-      end
+    # add hotels to the route drawn
+    @trip.hotels.each do |hotel|
+      waypoints << "#{hotel.latitude}%2C#{hotel.longitude}%3A"
     end
+    trip_request = origin_point + waypoints.join + origin_point
+    tomtom_api_call(trip_request)
 
-    # # Fabrication d'un hash de data compilé complet // Essai 2:
-    # @trip_summary_temp = []
-    # @trip_summary = []
-
-    # response.optimizedWaypoints.each do |waypoint|
-    #   activity = Activity.find(@trip.activities[waypoint.optimizedIndex].id)
-    #   @trip_summary_temp << {
-    #     order: waypoint.providedIndex + 1,
-    #     activity_id: activity.id,
-    #     duration: activity.duration * 60,
-    #   }
-    # end
-
-    # (1...(response.routes.first.legs.count - 1)).to_a.each do |step|
-
-    #     paired_activity = @trip_summary_temp.shift(2)
-    #     paired_activity << {
-    #       from: paired_activity.first[:order],
-    #       to: paired_activity.last[:order],
-    #       travel_duration: response.routes.first.legs[step].summary.travelTimeInSeconds
-    #     }
-    #     @trip_summary << paired_activity
-
-    # end
-
-    # Fabrication d'un hash de data compilé complet :
-    @trip_summary = {}
-    @trip_summary[:totalWaypoints] = 0
-    @trip_summary[:originPointActivityId] = san_francisco[0].id
-
-    # /!\ Optimized = array de coord passé dans la requete // Provided = Ordre intineraire optimisé
-    response.optimizedWaypoints.each do |waypoint|
-      activity = Activity.find(@trip.activities[waypoint.optimizedIndex].id)
-      # @trip_summary["waypoint#{waypoint.providedIndex}ActivityId".to_sym] = Activity.find(@trip.activities[waypoint.optimizedIndex].id).id
-      @trip_summary[:totalWaypoints] += 1
-      @trip_summary["waypoint#{waypoint.providedIndex + 1}ActivityId".to_sym] = activity.id
-      @trip_summary["waypoint#{waypoint.providedIndex + 1}ActivityDuration".to_sym] = activity.duration * 60
-    end
-    @trip_summary[:finalPointActivityId] = san_francisco[0].id
-
-    # Ajout des temps pour chaque etapes :
-    @trip_summary[:travelTimeBetweenWaypoint] = [{
-      originToWaypoint1: response.routes.first.legs.first.summary.travelTimeInSeconds,
-    }]
-
-    (1...(response.routes.first.legs.count - 1)).to_a.each do |step|
-      @trip_summary[:travelTimeBetweenWaypoint].first["waypoint#{step}To#{step + 1}".to_sym] = response.routes.first.legs[step].summary.travelTimeInSeconds
-    end
-
-    @trip_summary[:travelTimeBetweenWaypoint].first[:lastWaypointToFinalPoint] = response.routes.first.legs.last.summary.travelTimeInSeconds
-
-    # Building days distribution :
-    @durations = []
-
-    @durations << {
-      type: "ride",
-      from_id: san_francisco[0].id,
-      # id: san_francisco[0].id,
-      to_id: @trip_summary[:waypoint1ActivityId],
-      duration: @trip_summary[:travelTimeBetweenWaypoint].first[:originToWaypoint1],
-    }
-
-    (1..@trip_summary[:totalWaypoints]).to_a.each do |numb|
-      @durations << {
-        type: "activity",
-        id: @trip_summary["waypoint#{numb}ActivityId".to_sym],
-        order: numb,
-        duration: @trip_summary["waypoint#{numb}ActivityDuration".to_sym],
-      }
-      if @trip_summary[:travelTimeBetweenWaypoint].first.key?("waypoint#{numb}To#{numb + 1}".to_sym)
-        @durations << {
-          type: "ride",
-          from_id: @trip_summary["waypoint#{numb}ActivityId".to_sym],
-          to_id: @trip_summary["waypoint#{numb + 1}ActivityId".to_sym],
-          duration: @trip_summary[:travelTimeBetweenWaypoint].first["waypoint#{numb}To#{numb + 1}".to_sym],
-        }
-      end
-    end
-    @durations << {
-      type: "ride",
-      from_id: @durations.last[:id],
-      to_id: san_francisco[0].id,
-      # id: san_francisco[0].id,
-      duration: @trip_summary[:travelTimeBetweenWaypoint].first[:lastWaypointToFinalPoint],
-    }
-
-    @all_days = []
-    day_constant = 28_800 # Seconds
-
-    while @durations.any?
-      remaining_time = day_constant
-      trip_day = []
-      total_duration = { totalDayDuration: 0 }
-
-      if @durations.any? && @durations.first[:duration] > day_constant
-        # binding.pry
-        duration = @durations.first.dup
-        duration[:duration] = remaining_time
-        duration[:slicedInTwoDays] = true
-        total_duration[:totalDayDuration] += duration[:duration]
-        trip_day.push(duration)
-        @durations.first[:duration] -= remaining_time
-        remaining_time = 0
-
-        # elsif @durations.any? && remaining_time > 120 * 60 # && @duration.first = trajet
-        #   duration = @durations.first
-        #   duration[:duration] = remaining_time
-        #   duration[:slicedInTwoDays] = true
-        #   total_duration[:totalDayDuration] += duration[:duration]
-        #   trip_day.push(duration)
-        #   @durations.first[:duration] = @durations.first[:duration] - remaining_time
-      end
-
-      while @durations.any? && (remaining_time - @durations.first[:duration]).positive?
-        trip_day.push(@durations.first)
-        total_duration[:totalDayDuration] += @durations.first[:duration]
-        remaining_time -= @durations.first[:duration]
-        @durations.shift
-      end
-
-      trip_day.push(total_duration)
-      @all_days.push(trip_day) if trip_day.any?
-    end
     # raise
+
     # Send dataset for markers
     @markers = @trip.activities.map do |waypoint|
       {
         lat: waypoint[:latitude],
         lng: waypoint[:longitude],
         info_window: render_to_string(partial: "shared/info_window", locals: { waypoint: waypoint }),
+      }
+    end
+    @markers_hotels = @trip.hotels.map do |hotel|
+      {
+        lat: hotel[:latitude],
+        lng: hotel[:longitude],
+        # info_window: render_to_string(partial: "shared/info_window", locals: { waypoint: waypoint }),
+        image_url: helpers.asset_url("hotel_marker.png"),
       }
     end
   end
@@ -336,5 +215,186 @@ class TripsController < ApplicationController
 
   def trip_params
     params.require(:trip).permit(:start_date, :duration, :destination, :nb_people)
+  end
+
+  def find_hotel(day)
+    if day[-3][:type] == "ride"
+      activity_lat = Activity.find(day[-3][:to_id]).latitude
+      activity_long = Activity.find(day[-3][:to_id]).longitude
+    end
+
+    if day[-3][:type] == "activity"
+      activity_lat = Activity.find(day[-3][:id]).latitude
+      activity_long = Activity.find(day[-3][:id]).longitude
+    end
+
+    api_token = "UIJntIl4JdzoPutRU5kcksjwlzPSDGlR"
+    hotel_url = "https://api.tomtom.com/search/2/search/hotel.json?limit=10&lat=#{activity_lat}&lon=#{activity_long}&radius=30000&categorySet=7314&key=#{api_token}"
+    hotel_serialized = URI.open(hotel_url).read
+    hotel_detail = JSON.parse(hotel_serialized)
+    hotel_detail["results"].keep_if { |result| result.key?("dataSources") }
+
+    hotel_detail["results"].each do |hotel|
+      poi_id = hotel["dataSources"]["poiDetails"].first["id"]
+      poi_detail_url = "https://api.tomtom.com/search/2/poiDetails.json?key=#{api_token}&id=#{poi_id}"
+      poi_detail_serialized = URI.open(poi_detail_url).read
+      poi_detail = JSON.parse(poi_detail_serialized)
+
+      next unless poi_detail["result"].key?("description")
+
+      poi_id_photo = poi_detail["result"]["photos"].first["id"]
+      poi_photo_url = "https://api.tomtom.com/search/2/poiPhoto?key=#{api_token}&id=#{poi_id_photo}"
+
+      @hotel = Hotel.create(
+        address: "#{hotel["address"]["freeformAddress"]}, United-States",
+        rating: (50..75).to_a.sample.fdiv(10),
+        description: poi_detail["result"]["description"],
+        price: "#{(50..120).to_a.sample}.#{(1..99).to_a.sample}".to_f,
+        longitude: hotel["position"]["lon"],
+        latitude: hotel["position"]["lat"],
+        name: hotel["poi"]["name"],
+        img_link: poi_photo_url,
+      )
+      break unless @hotel.nil?
+    end
+    TripHotel.create(trip: @trip, hotel: @hotel, day: day.last[:day])
+  end
+
+  def tomtom_api_call(trip_request)
+    # API Call
+    api_token = "UIJntIl4JdzoPutRU5kcksjwlzPSDGlR"
+    tomtom_request = "https://api.tomtom.com/routing/1/calculateRoute/#{trip_request}/json?computeBestOrder=true&routeRepresentation=polyline&routeType=fastest&avoid=unpavedRoads&travelMode=car&vehicleCommercial=false&key=#{api_token}"
+    response_serialized = URI.open(tomtom_request).read
+    @response_tomtom = JSON.parse(response_serialized, object_class: OpenStruct)
+
+    # ----------------------
+    # add response error handeling by response.respond_to?(:routes) / else : render activity 'no routes find'
+    # -----------------------
+
+    # Exploiting results :
+    @routes = [] # Contains all routes to pass to mapbox
+
+    @response_tomtom.routes.first.legs.each do |leg|
+      leg.points.each do |coordinates|
+        @routes << [coordinates.longitude, coordinates.latitude]
+      end
+    end
+  end
+
+  def set_trip_summary
+    # Fabrication d'un hash de data compilé complet :
+    @trip_summary = {}
+    @trip_summary[:totalWaypoints] = 0
+    @trip_summary[:originPointActivityId] = @san_francisco[0].id
+
+    # /!\ Optimized = array de coord passé dans la requete // Provided = Ordre intineraire optimisé
+    @response_tomtom.optimizedWaypoints.each do |waypoint|
+      activity = Activity.find(@trip.activities[waypoint.optimizedIndex].id)
+      @trip_summary[:totalWaypoints] += 1
+      @trip_summary["waypoint#{waypoint.providedIndex + 1}ActivityId".to_sym] = activity.id
+      @trip_summary["waypoint#{waypoint.providedIndex + 1}ActivityDuration".to_sym] = activity.duration * 60
+    end
+    @trip_summary[:finalPointActivityId] = @san_francisco[0].id
+
+    # Ajout des temps pour chaque etapes :
+    @trip_summary[:travelTimeBetweenWaypoint] = [{
+      originToWaypoint1: @response_tomtom.routes.first.legs.first.summary.travelTimeInSeconds,
+    }]
+
+    (1...(@response_tomtom.routes.first.legs.count - 1)).to_a.each do |step|
+      @trip_summary[:travelTimeBetweenWaypoint].first["waypoint#{step}To#{step + 1}".to_sym] = @response_tomtom.routes.first.legs[step].summary.travelTimeInSeconds
+    end
+
+    @trip_summary[:travelTimeBetweenWaypoint].first[:lastWaypointToFinalPoint] = @response_tomtom.routes.first.legs.last.summary.travelTimeInSeconds
+  end
+
+  def day_distribution
+    # Building days distribution :
+    @durations = []
+
+    @durations << {
+      type: "ride",
+      from_id: @san_francisco[0].id,
+      # id: @san_francisco[0].id,
+      to_id: @trip_summary[:waypoint1ActivityId],
+      duration: @trip_summary[:travelTimeBetweenWaypoint].first[:originToWaypoint1],
+    }
+
+    (1..@trip_summary[:totalWaypoints]).to_a.each do |numb|
+      @durations << {
+        type: "activity",
+        id: @trip_summary["waypoint#{numb}ActivityId".to_sym],
+        order: numb,
+        duration: @trip_summary["waypoint#{numb}ActivityDuration".to_sym],
+      }
+      if @trip_summary[:travelTimeBetweenWaypoint].first.key?("waypoint#{numb}To#{numb + 1}".to_sym)
+        @durations << {
+          type: "ride",
+          from_id: @trip_summary["waypoint#{numb}ActivityId".to_sym],
+          to_id: @trip_summary["waypoint#{numb + 1}ActivityId".to_sym],
+          duration: @trip_summary[:travelTimeBetweenWaypoint].first["waypoint#{numb}To#{numb + 1}".to_sym],
+        }
+      end
+    end
+    @durations << {
+      type: "ride",
+      from_id: @durations.last[:id],
+      to_id: @san_francisco[0].id,
+      # id: @san_francisco[0].id,
+      duration: @trip_summary[:travelTimeBetweenWaypoint].first[:lastWaypointToFinalPoint],
+    }
+
+    @all_days = []
+    day_constant = 28_800 # Seconds
+
+    while @durations.any?
+      remaining_time = day_constant
+      trip_day = []
+      total_duration = { totalDayDuration: 0 }
+
+      if @durations.any? && @durations.first[:duration] > day_constant
+        # binding.pry
+        duration = @durations.first.dup
+        duration[:duration] = remaining_time
+        duration[:slicedInTwoDays] = true
+        total_duration[:totalDayDuration] += duration[:duration]
+        trip_day.push(duration)
+        @durations.first[:duration] -= remaining_time
+        remaining_time = 0
+
+        # elsif @durations.any? && remaining_time > 120 * 60 # && @duration.first = trajet
+        #   duration = @durations.first
+        #   duration[:duration] = remaining_time
+        #   duration[:slicedInTwoDays] = true
+        #   total_duration[:totalDayDuration] += duration[:duration]
+        #   trip_day.push(duration)
+        #   @durations.first[:duration] = @durations.first[:duration] - remaining_time
+      end
+
+      while @durations.any? && (remaining_time - @durations.first[:duration]).positive?
+        trip_day.push(@durations.first)
+        total_duration[:totalDayDuration] += @durations.first[:duration]
+        remaining_time -= @durations.first[:duration]
+        @durations.shift
+      end
+
+      trip_day.push(total_duration)
+      @all_days.push(trip_day) if trip_day.any?
+    end
+  end
+
+  def find_hotels_for_each_day
+    TripHotel.where(trip: @trip).destroy_all
+    day_increment = 1
+    @all_days.each do |day|
+      day << { day: day_increment }
+      activities = day.pluck(:id).reject(&:nil?)
+      if activities.any?
+        activities.each { |id| TripActivity.where(trip_id: @trip, activity_id: id).update(day: day_increment) }
+      end
+
+      find_hotel(day)
+      day_increment += 1
+    end
   end
 end
