@@ -1,11 +1,17 @@
 <div class="container py-5 ">
+
+  <h1 class="center-choose">Choose your flights</h1>
+  <div class="arrival-departure">
+    <h2>Ongoing Flight:</h2>
+    <h2>Returning Flight:</h2>
+  </div>
   <%= simple_form_for @trip, url: flight_choice_trip_path(@trip), method: :post do |f| %>
     <div class="card-container">
       <%= f.association :trip_flights, as: :check_boxes,
             legend_tag: false,
             input_html: { class: "flight-selector" },
-            item_wrapper_class: '', collection: Flight.all, label_method: lambda { |flight| render("flight_infos", flight: flight)}, value_method: :id, class: '' %>
-        <%= f.submit "Validate your Flight", class: 'btn btn-outline-secondary rounded'%>
+            item_wrapper_class: '', collection: Flight.all, label_method: lambda { |flight| render("flight_ticket_info", flight: flight)}, value_method: :id, class: '' %>
+      <%= f.submit "Validate your Flight", class: 'btn btn-outline-secondary rounded mx-auto d-block'%>
     </div>
   <% end %>
 </div>
