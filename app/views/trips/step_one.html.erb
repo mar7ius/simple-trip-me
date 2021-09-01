@@ -11,7 +11,9 @@
             legend_tag: false,
             input_html: { class: "flight-selector" },
             item_wrapper_class: '', collection: Flight.all, label_method: lambda { |flight| render("flight_ticket_info", flight: flight)}, value_method: :id, class: '' %>
-      <%= f.submit "Validate your Flight", class: 'btn-koral rounded mx-auto d-block'%>
+      <div class="d-flex justify-content-center">
+        <%= f.submit "Validate your Flight", class: 'btn btn-koral'%>
+      </div>
     </div>
   <% end %>
 </div>

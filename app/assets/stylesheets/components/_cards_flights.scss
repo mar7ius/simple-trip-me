@@ -2,7 +2,8 @@
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
-  align-items: center;
+  align-items: center; // not used?
+  align-content: space-between;
   height: 790px;
 }
 
@@ -51,7 +52,12 @@
 .top-infos {
   display: flex;
   justify-content: space-around;
-  margin: 0
+  align-items: center;
+  margin: 0px;
+
+  h2 {
+    margin: 0px;
+  }
 }
 
 .bottom-infos {
@@ -83,8 +89,16 @@
 }
 .arrival-departure {
   display: flex;
-  justify-content: space-around;
+  // justify-content: space-around;
+  justify-content: space-between;
   margin-bottom: 25px;
+
+  h2 {
+    width: 490px;
+    text-align: center;
+    margin: 0px;
+    padding: 10px;
+  }
 }
 .center-choose {
   color: $turquoise;
