@@ -1,11 +1,21 @@
-<div class="container py-5 text-center ">
-  <h1> Choose your activities in <%= @trip.destination.capitalize %></h1>
+<div data-controller="loader">
+  <div class="loader d-none" data-loader-target="modal">
+    <div class="loader-block" style="background-image: url(<%= asset_path 'airplane-loader.gif'%>); background-size: cover;">
+      <h2>We are compiling your trip, it could take a few seconds</h2>
+      <h4>Tips: Don't forget the sunscreen ! 😉</h4>
+    </div>
+  </div>
+
+  <div class="container py-5 text-center ">
+   <h1> Choose your activities in <%= @trip.destination.capitalize %></h1>
+  </div>
+    <%= simple_form_for @trip, url: activity_choice_trip_path(@trip), method: :post, data: { loader_target: 'submit', action: 'submit->loader#submit' } do |f| %>
+      <%= f.association :trip_activities, as: :check_boxes,
+                        legend_tag: false,
+                        input_html: { class: "activity-selector" },
+                        item_wrapper_class: 'activity-item',
+                        collection: Activity.where.not(category: 'City'), label_method: lambda { |activity| render("activity_infos", activity: activity)  }, value_method: :id, class: '' %>
+      <%= f.submit "Validate your activities",
+                    class: 'btn btn-koral mb-5' %>
+    <% end %>
 </div>
-  <%= simple_form_for @trip, url: activity_choice_trip_path(@trip), method: :post do |f| %>
-    <%= f.association :trip_activities, as: :check_boxes,
-                      legend_tag: false,
-                      input_html: { class: "activity-selector" },
-                      item_wrapper_class: 'activity-item',
-                      collection: Activity.where.not(category: 'City'), label_method: lambda { |activity| render("activity_infos", activity: activity)  }, value_method: :id, class: '' %>
-     <%= f.submit "Validate your activities", class: 'btn btn-outline-secondary rounded mb-5' %>
-  <% end %>

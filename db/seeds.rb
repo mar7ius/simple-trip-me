@@ -14,29 +14,6 @@ Trip.destroy_all
 puts "creating default user"
 User.create(email: "michel@gmail.com", password: "lewagon")
 
-Flight.create(
-  departure: 'Paris-Charles de Gaulle',
-  compagnie_name: "Air France",
-  departure_date: Date.parse("2021-08-28"),
-  duration: 700,
-  arrival: "Aéroport international de San Francisco",
-  arrival_date: Date.parse("2021-08-28"),
-  airport_iata_code: "SFO",
-  price: 2474.to_f,
-  departure_flight: true
-)
-
-Flight.create(
-  departure: 'Aéroport international de San Francisco',
-  compagnie_name: "Air France",
-  departure_date: Date.parse("2021-09-01"),
-  duration: 600,
-  arrival: "Paris-Charles de Gaulle",
-  arrival_date: Date.parse("2021-09-01"),
-  airport_iata_code: "CDG",
-  price: 2479.to_f,
-)
-
 ACTIVITIES = [{
   name: "Yosemite",
   address: "Tioga Road Hwy 120 & Hwy 140 Yosemite National Park, CA 95389",
@@ -404,35 +381,3 @@ ACTIVITIES = [{
 ACTIVITIES.each do |activity|
   Activity.create!(activity)
  end
-
-
-# puts "creating hotels :"
-Hotel.create(
-  name: "St. Regis San Francisco",
-  address: "125 Third Street, San Francisco, CA 94103, United-States",
-  stars: 5,
-  description: "Located in San Francisco's SoMa neighborhood, The St. Regis San Francisco features a full-service spa, an infinity pool and an on-site restaurant. This luxury hotel has rooms with flat-screen TVs. Union Square is an 8-minute walk away.",
-  price: 525.to_f,
-  longitude: -122.401322,
-  latitude: 37.786314
- )
-
-Hotel.create(
-  name: "The Palazzo at The Venetian",
-  address: "3325 Las Vegas Boulevard South, Strip, Las Vegas, NV 89109, United-States",
-  stars: 4,
-  description: "Located on the Las Vegas Strip. This luxury hotel includes a full-service spa and wellness club. Guests enjoy a pool deck overlooking the Strip and a state-of-the-art casino.",
-  price: 499.to_f,
-  longitude: -115.134132,
-  latitude: 36.181271
-)
-
- Hotel.create(
-  name: "Kimpton La Peer Hotel, an IHG Hotel",
-  address: "627 N LA PEER DR, West Hollywood, Los Angeles, CA 90069, United-States",
-  stars: 5,
-  description: "Located on a tree-lined street in the West Hollywood design district. It offers an on-site restaurant and a pool for relaxing.",
-  price: 405.to_f,
-  longitude: -118.3617443,
-  latitude: 34.0900091
- )
