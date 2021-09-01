@@ -1,19 +1,20 @@
-<div class="container py-5 ">
-
-  <h1 class="center-choose">Choose your flights</h1>
-  <div class="arrival-departure">
-    <h2><i class="fas fa-plane-departure"></i> Ongoing Flight </h2>
-    <h2>Returning Flight <i class="fas fa-plane-arrival"></i></h2>
-  </div>
-  <%= simple_form_for @trip, url: flight_choice_trip_path(@trip), method: :post do |f| %>
-    <div class="card-container">
-      <%= f.association :trip_flights, as: :check_boxes,
-            legend_tag: false,
-            input_html: { class: "flight-selector" },
-            item_wrapper_class: '', collection: Flight.all, label_method: lambda { |flight| render("flight_ticket_info", flight: flight)}, value_method: :id, class: '' %>
-      <div class="d-flex justify-content-center">
-        <%= f.submit "Validate your Flight", class: 'btn btn-koral'%>
-      </div>
+<div class="main-wrapper">
+  <div class="container py-5 ">
+    <h1 class="center-choose">Choose your flights</h1>
+    <div class="arrival-departure">
+      <h2><i class="fas fa-plane-departure"></i> Ongoing Flight </h2>
+      <h2>Returning Flight <i class="fas fa-plane-arrival"></i></h2>
     </div>
-  <% end %>
+    <%= simple_form_for @trip, url: flight_choice_trip_path(@trip), method: :post do |f| %>
+      <div class="card-container">
+        <%= f.association :trip_flights, as: :check_boxes,
+              legend_tag: false,
+              input_html: { class: "flight-selector" },
+              item_wrapper_class: '', collection: Flight.all, label_method: lambda { |flight| render("flight_ticket_info", flight: flight)}, value_method: :id, class: '' %>
+        <div class="d-flex justify-content-center">
+          <%= f.submit "Validate your Flight", class: 'btn btn-koral'%>
+        </div>
+      </div>
+    <% end %>
+  </div>
 </div>

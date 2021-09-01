@@ -9,8 +9,10 @@ const initUpdateNavbarOnScroll = () => {
     let bannerMidHeight;
     if (banner) {
       bannerMidHeight = banner.getBoundingClientRect().height / 2;
+      // console.log(bannerMidHeight)
     } else {
-      bannerMidHeight = navbar.getBoundingClientRect().height;
+      // bannerMidHeight = navbar.getBoundingClientRect().height;
+      bannerMidHeight = 70;
     }
 
     window.addEventListener('scroll', () => {
