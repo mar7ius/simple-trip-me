@@ -243,7 +243,7 @@ class TripsController < ApplicationController
       next unless poi_detail["result"].key?("description")
 
       poi_id_photo = poi_detail["result"]["photos"].first["id"]
-      poi_photo_url = "https://api.tomtom.com/search/2/poiPhoto?key=#{api_token}&id=#{poi_id_photo}"
+      poi_photo_url = "https://api.tomtom.com/search/2/poiPhoto?key=#{api_token}&id=#{poi_id_photo}&height=250&width=250"
 
       @hotel = Hotel.create(
         address: "#{hotel["address"]["freeformAddress"]}, United-States",
