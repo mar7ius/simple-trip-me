@@ -44,7 +44,7 @@ class TripsController < ApplicationController
       client_id: ENV["AMADEUS_CLIENT_ID"],
       client_secret: ENV["AMADEUS_CLIENT_SECRET"],
     })
-    result_d = amadeus.shopping.flight_offers_search.get(originLocationCode: params[:departure], destinationLocationCode: params[:arrival], departureDate: @trip.start_date, adults: 1, nonStop: true)
+    result_d = amadeus.shopping.flight_offers_search.get(originLocationCode: params[:departure], destinationLocationCode: params[:arrival], departureDate: @trip.start_date, adults: 1, nonStop: true, excludedAirlineCodes: "BF")
 
     parsing = JSON.parse(result_d.body)["data"].first(3)
 
@@ -61,7 +61,7 @@ class TripsController < ApplicationController
         airport_iata_code: flight["itineraries"][0]["segments"][0]["departure"]["iataCode"],
       )
     end
-    result_a = amadeus.shopping.flight_offers_search.get(originLocationCode: params[:arrival], destinationLocationCode: params[:departure], departureDate: @trip.start_date + @trip.duration.days, adults: 1, nonStop: true)
+    result_a = amadeus.shopping.flight_offers_search.get(originLocationCode: params[:arrival], destinationLocationCode: params[:departure], departureDate: @trip.start_date + @trip.duration.days, adults: 1, nonStop: true, excludedAirlineCodes: "BF")
     parsing = JSON.parse(result_a.body)["data"].first(3)
     parsing.each do |flight|
       Flight.create(

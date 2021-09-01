@@ -2,7 +2,7 @@
 <div class="bgSizeContain">
   <div class="top-infos">
     <h2><%= flight.departure %></h2>
-  <%=image_tag("plane.svg", width: 50, class:'margin-to-plane' )%>
+  <%=image_tag("plane.svg", width: 50, class:"margin-to-plane #{'rotate-flight' if !flight.departure_flight }")%>
     <h2><%= flight.arrival %></h2>
   </div>
 
