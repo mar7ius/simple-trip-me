@@ -41,9 +41,10 @@
 }
 
 .card img {
-  height: 35vh;
+  height: 20vh;
   object-fit: cover;
   width: 100%;
+  border-radius: 8px;
 }
 
 .card h3,h4,h5,h6 {
@@ -54,13 +55,13 @@
   height: 100% !important;
 }
 
-.card h2 {
-  position: absolute;
+.card h4 {
+
   top: 35%;
   text-align: center;
   width: 100%;
-  color: white;
-  text-shadow: 0 0 10px rgba(0,0,0,0.7);
+  color: #40E0D0;
+
 }
 .card-item {
   display: inline-block;
@@ -89,7 +90,7 @@
 
 
 .card-activities {
-  height: -webkit-fill-available;
+  height: 150px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
