@@ -3,20 +3,18 @@
     <%= image_tag "image_#{activity.code_image}.png" %>
   </div>
   <div class="container py-2 card-activities">
-  <h4 class=" text-center "><%= activity.name%></h4>
-  <div class="card-content">
-    <p class=" text-center "> <strong><%= activity.category %></strong></p>
-    <p><%= activity.description.truncate(50) %></p>
-      <div class="d-flex justify-content-between w-100">
-      <% if activity.price == 0.00 %>
-        <h5>Free!</h5>
-      <% else %>
-         <h5><i class="fas fa-dollar-sign"></i>  <%= activity.price %> $</h5>
-      <% end %>
-
-      <h5><i class="far fa-clock pr-2"></i> <%= activity.duration%>'</h5>
-
-      </div>
-  </div>
+    <h4 class=" text-center "><%= activity.name%></h4>
+    <div class="card-content">
+      <p class=" text-center "> <strong><%= activity.category %></strong></p>
+      <p><%= activity.description.truncate(50) %></p>
+        <div class="d-flex justify-content-between w-100">
+          <% if activity.price == 0.00 %>
+            <h5>Free!</h5>
+          <% else %>
+             <h5><i class="fas fa-dollar-sign"></i>  <%= activity.price %> $</h5>
+          <% end %>
+          <h5><i class="far fa-clock pr-2"></i> <%= activity.duration%>'</h5>
+        </div>
+    </div>
   </div>
 </div>

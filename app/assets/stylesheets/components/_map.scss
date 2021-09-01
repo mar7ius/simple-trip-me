@@ -7,3 +7,30 @@
   text-align: center;
   font-family: 'Open Sans', sans-serif;
 }
+
+.trip-summary {
+  text-align: center;
+  margin-top: 80px;
+}
+
+#map {
+  height: 100%;
+  margin: 1.5rem;
+  position: sticky;
+  top: 0;
+}
+
+#accordion .card {
+  background-color: transparent;
+  border: none;
+  .card-header {
+    background-color: transparent;
+  }
+  h3 {
+    font-size: 1.5rem;
+  }
+}
+
+.days-container, .map-container {
+  flex: 1;
+}
