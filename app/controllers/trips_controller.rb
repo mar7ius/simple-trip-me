@@ -242,8 +242,12 @@ class TripsController < ApplicationController
 
       next unless poi_detail["result"].key?("description")
 
-      poi_id_photo = poi_detail["result"]["photos"].first["id"]
-      poi_photo_url = "https://api.tomtom.com/search/2/poiPhoto?key=#{api_token}&id=#{poi_id_photo}&height=250&width=250"
+      poi_id_photo = poi_detail["result"]["photos"]&.first&.dig("id")
+      if poi_id_photo.nil?
+        poi_photo_url = "https://via.placeholder.com/300"
+      else
+        poi_photo_url = "https://api.tomtom.com/search/2/poiPhoto?key=#{api_token}&id=#{poi_id_photo}&height=250&width=250"
+      end
 
       @hotel = Hotel.create(
         address: "#{hotel["address"]["freeformAddress"]}, United-States",
