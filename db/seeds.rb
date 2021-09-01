@@ -50,7 +50,7 @@ ACTIVITIES = [{
   },
 
   {
-  name: "Mariposa Museum & History Center",
+  name: "Mariposa Museum",
   address: "5119 Jessie St, Mariposa, CA 95338, United-States",
   longitude: -119.97116,
   latitude: 37.489475,
@@ -87,7 +87,7 @@ ACTIVITIES = [{
   },
 
   {
-  name: "Los Angeles County Museum of Art",
+  name: "LACMA",
   address: " 5905 Wilshire Blvd, Los Angeles, CA 90036, United-States",
   longitude: -118.360565,
   latitude: 34.064251,
@@ -111,7 +111,7 @@ ACTIVITIES = [{
   },
 
   {
-  name: "Private tour of the Griffith Observatory ",
+  name: "The Griffith Observatory ",
   address: "2800 E Observatory Rd, Los Angeles, CA 90027, United-States",
   longitude: -118.300463,
   latitude: 34.119311,
@@ -147,7 +147,7 @@ ACTIVITIES = [{
   },
 
       {
-  name: "San Diego Zoo Safari Park",
+  name: "Zoo Safari Park",
   address: " 15500 San Pasqual Valley Rd, Escondido, CA 92027, United-States",
   longitude: -117.002091,
   latitude: 33.095548,
@@ -159,7 +159,7 @@ ACTIVITIES = [{
   },
 
    {
-  name: "Death Valley National Park",
+  name: "Death Valley",
   address: "Furnace Creek, CA 92328, United-States",
   longitude: -116.808972,
   latitude: 36.421045,
@@ -195,7 +195,7 @@ ACTIVITIES = [{
   },
 
   {
-  name: "Las Vegas Cirque du soleil shows - Bellagio Hotel",
+  name: "Cirque du soleil shows",
   address: "Bellagio Drive, Las Vegas, NV 89109, United-States",
   longitude: -115.1743,
   latitude: 36.11157,
@@ -243,7 +243,7 @@ ACTIVITIES = [{
   },
 
   {
-  name: "Alcatraz Federal Penitentiary",
+  name: "Alcatraz",
   address: "San Francisco, Californie 94133, United-States",
   longitude: -122.41074,
   latitude: 37.81749,
@@ -267,7 +267,7 @@ ACTIVITIES = [{
   },
 
   {
-  name: "Sequoia National Park",
+  name: "Sequoia",
   address: "California, United-States",
   longitude: -118.59584,
   latitude: 36.45288,
@@ -291,7 +291,7 @@ ACTIVITIES = [{
   },
 
   {
-  name: "SeaWorld - San Diego",
+  name: "SeaWorld",
   address: "500 Sea World Dr., San Diego, CA 92109, United-States",
   longitude: -117.230969,
   latitude: 32.763173,
@@ -351,7 +351,7 @@ ACTIVITIES = [{
   },
 
   {
-  name: "Newport Landing Whale Watching",
+  name: "Newport Landing",
   address: "309 Palm St A, Newport Beach, CA 92661, United-States ",
   longitude: -117.900461,
   latitude: 33.603225,
@@ -363,7 +363,7 @@ ACTIVITIES = [{
   },
 
   {
-  name: "Excursion to Muir Woods and the vineyards",
+  name: "Muir Woods",
   address: "955 School Street Napa CA 94559, United-States",
   longitude: -122.2895309,
   latitude: 38.2973345,
@@ -375,7 +375,7 @@ ACTIVITIES = [{
   },
 
   {
-  name: "Monterey & Carmel Tours",
+  name: "Monterey",
   address: "3378-3404 17 Mile Dr, Pebble Beach, CA 93953, United-States",
   longitude: -121.931724,
   latitude: 36.563562,

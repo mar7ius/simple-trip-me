@@ -1,5 +1,5 @@
 <div class="container py-5 text-center ">
-  <h2> Choose your activities in <%= @trip.destination.capitalize %></h2>
+  <h1> Choose your activities in <%= @trip.destination.capitalize %></h1>
 </div>
   <%= simple_form_for @trip, url: activity_choice_trip_path(@trip), method: :post do |f| %>
     <%= f.association :trip_activities, as: :check_boxes,

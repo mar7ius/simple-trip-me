@@ -1,10 +1,16 @@
 
+.first-step-form-wrapper {
+  position: absolute;
+  bottom: -90px;
+  z-index: 1000;
+  width: 100%;
+}
 .container-form {
   font-family: "Noto Sans TC", sans-serif, "Helvetica", "sans-serif";
   color: #255853;
   width: 70vw;
-  top: 300px;
-  position: relative;
+  // top: 300px;
+  // position: relative;
   border-radius: 8px;
   box-shadow: 0 0 20px rgba(0,0,0,0.1);
   /* margin-left: 200px; */
