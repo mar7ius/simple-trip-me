@@ -99,7 +99,7 @@ ACTIVITIES = [{
   },
 
     {
-  name: "Universal Studios Hollywood",
+  name: "Universal Studios",
   address: "100 Universal City Plaza, Universal City, CA 91608, United-States",
   longitude: -118.351175,
   latitude: 34.135315,
@@ -388,7 +388,7 @@ ACTIVITIES = [{
 
 
   {
-  name: "Tyrolean traverse on Catalina Island",
+  name: "Catalina Island",
   address: "217 Metropole Ave, Avalon, CA 90704, United-States",
   longitude: -118.327857,
   latitude: 33.343317,

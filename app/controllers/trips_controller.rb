@@ -24,7 +24,7 @@ class TripsController < ApplicationController
 
   def create
     @trip = Trip.new(trip_params)
-    @trip.destination = "Californie"
+    @trip.destination = "California"
     authorize @trip
     @trip.user = current_user
     departure = params[:trip][:departure_flight] == 'Paris' ? 'PAR' : 'TLS'
