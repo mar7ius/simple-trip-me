@@ -218,6 +218,7 @@ class TripsController < ApplicationController
   end
 
   def find_hotel(day)
+    @hotel = ""
     if day[-3][:type] == "ride"
       activity_lat = Activity.find(day[-3][:to_id]).latitude
       activity_long = Activity.find(day[-3][:to_id]).longitude
@@ -229,7 +230,7 @@ class TripsController < ApplicationController
     end
 
     api_token = ENV["TOMTOM_API_TOKEN"]
-    hotel_url = "https://api.tomtom.com/search/2/search/hotel.json?limit=10&lat=#{activity_lat}&lon=#{activity_long}&radius=30000&categorySet=7314&key=#{api_token}"
+    hotel_url = "https://api.tomtom.com/search/2/search/hotel.json?limit=15&lat=#{activity_lat}&lon=#{activity_long}&radius=100000&categorySet=7314&key=#{api_token}"
     hotel_serialized = URI.open(hotel_url).read
     hotel_detail = JSON.parse(hotel_serialized)
     hotel_detail["results"].keep_if { |result| result.key?("dataSources") }
