@@ -102,3 +102,26 @@
   line-height: 17px;
   border-radius: 8px;
 }
+.card-description {
+  display: none;
+  transition: 0.3s ease;
+  text-align: justify;
+}
+
+.card-content{
+  transition: 0.3s ease;
+}
+
+.act {
+    transition: 0.3s ease;
+}
+
+.act:hover {
+
+  .card-description {
+    display: block;
+  }
+  .card-infos {
+    display: none;
+  }
+}

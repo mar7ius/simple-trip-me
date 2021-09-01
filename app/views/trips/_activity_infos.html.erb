@@ -1,10 +1,10 @@
-<div class="card" style="width: 30vw;">
+<div class="card act" style="width: 30vw;">
   <div style="position: relative;">
     <%= image_tag "image_#{activity.code_image}.png" %>
   </div>
   <div class="container py-2 card-activities">
     <h4 class=" text-center "><%= activity.name%></h4>
-    <div class="card-content">
+    <div class="card-infos">
       <p class=" text-center "> <strong><%= activity.category %></strong></p>
       <p><%= activity.description.truncate(50) %></p>
         <div class="d-flex justify-content-between w-100">
@@ -15,6 +15,9 @@
           <% end %>
           <h5><i class="far fa-clock pr-2"></i> <%= activity.duration%>'</h5>
         </div>
+    </div>
+    <div class="card-description">
+      <p><%= activity.description%></p>
     </div>
   </div>
 </div>
