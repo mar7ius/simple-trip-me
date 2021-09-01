@@ -63,14 +63,17 @@
 .bottom-infos {
   display: flex;
   justify-content: space-around;
-  p {
-    margin: 0;
+  align-items: center;
+  span {
+    color: $dark-green;
   }
 }
 
 .ticket-price {
   font-size: 25px;
   margin-bottom: 0;
+  width: 150px;
+  text-align: left;
 }
 
 .ticket-dates{
@@ -79,9 +82,13 @@
 }
 
 .ticket-duration {
-  p {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  span {
     color: rgb(138, 130, 130);
-   margin: 5px;
+    padding: 1px;
   }
 }
 .margin-to-plane {
