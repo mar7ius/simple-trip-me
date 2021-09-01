@@ -23,10 +23,12 @@ require("channels")
 // ----------------------------------------------------
 
 // External imports
+import "controllers"
 import "bootstrap";
 import { initMapbox } from '../plugins/init_mapbox';
 import { initFlatpickr } from "../plugins/flatpickr";
 import { initSelect2 } from '../components/init_select2';
+import { initUpdateNavbarOnScroll } from '../components/navbar';
 
 // Internal imports, e.g:
 // import { initSelect2 } from '../components/init_select2';
@@ -37,6 +39,5 @@ document.addEventListener('turbolinks:load', () => {
   initSelect2();
   initMapbox();
   initFlatpickr();
+  initUpdateNavbarOnScroll();
 });
-
-import "controllers"
