@@ -19,4 +19,12 @@ class Trip < ApplicationRecord
 
   validates :start_date, :duration, :destination, presence: true
   # validates :, inclusion: { in: AIRPORTS }
+
+  def price
+    trip = self
+    flights = trip.flights.pluck(:price).sum
+    hotels = trip.hotels.pluck(:price).sum
+    activities = trip.activities.pluck(:price).sum
+    flights + hotels + activities
+  end
 end
