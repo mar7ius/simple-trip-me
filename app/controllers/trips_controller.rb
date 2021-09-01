@@ -228,7 +228,7 @@ class TripsController < ApplicationController
       activity_long = Activity.find(day[-3][:id]).longitude
     end
 
-    api_token = "UIJntIl4JdzoPutRU5kcksjwlzPSDGlR"
+    api_token = ENV["TOMTOM_API_TOKEN"]
     hotel_url = "https://api.tomtom.com/search/2/search/hotel.json?limit=10&lat=#{activity_lat}&lon=#{activity_long}&radius=30000&categorySet=7314&key=#{api_token}"
     hotel_serialized = URI.open(hotel_url).read
     hotel_detail = JSON.parse(hotel_serialized)
@@ -262,7 +262,7 @@ class TripsController < ApplicationController
 
   def tomtom_api_call(trip_request)
     # API Call
-    api_token = ENV["64raM4NF1RQZ3n98XOmig6f7RIde744o"]
+    api_token = ENV["TOMTOM_API_TOKEN"]
     tomtom_request = "https://api.tomtom.com/routing/1/calculateRoute/#{trip_request}/json?computeBestOrder=true&routeRepresentation=polyline&routeType=fastest&avoid=unpavedRoads&travelMode=car&vehicleCommercial=false&key=#{api_token}"
     response_serialized = URI.open(tomtom_request).read
     @response_tomtom = JSON.parse(response_serialized, object_class: OpenStruct)
