@@ -8,11 +8,12 @@
 
   <p class="ticket-dates"><%= flight.departure_date.strftime("%d %B %Y") if flight.departure_date %> to <%= flight.arrival_date.strftime("%d %B %Y") if flight.arrival_date %></p>
   <div class="ticket-duration">
-    <p>  <i class="fas fa-stopwatch"></i> <%= flight.flight_duration if flight.duration%></p>
-    <p>Direct</p>
+    <span><i class="far fa-clock pr-2"></i><%= flight.flight_duration.split(' ').join if flight.duration%></span>
+    <span>Direct</span>
   </div>
   <div class="bottom-infos">
-    <p class="ticket-price"><i class="fas fa-money-check"> </i> </i><%= flight.price %> $ </p>
-    <p>Operated by <%= flight.compagnie_name %></p>
+    <span class="ticket-price"><i class="fas fa-dollar-sign"></i> <%= flight.price %></span>
+    <%# <p>Operated by <%= flight.compagnie_name %>
+    <%= image_tag("https://daisycon.io/images/airline/?width=150&height=50&iata=#{ flight.compagnie_name }") %>
   </div>
 </div>
