@@ -41,8 +41,8 @@ class TripsController < ApplicationController
     TripFlight.destroy_all
     Flight.destroy_all
     amadeus = Amadeus::Client.new({
-      client_id: "nXHIAKb8yz6m3otvA1MGO2ETNK3I0gtm",
-      client_secret: "tTW6I4texIOPcBLr",
+      client_id: ENV["AMADEUS_CLIENT_ID"],
+      client_secret: ENV["AMADEUS_CLIENT_SECRET"],
     })
     result_d = amadeus.shopping.flight_offers_search.get(originLocationCode: params[:departure], destinationLocationCode: params[:arrival], departureDate: @trip.start_date, adults: 1, nonStop: true)
 
@@ -228,7 +228,7 @@ class TripsController < ApplicationController
       activity_long = Activity.find(day[-3][:id]).longitude
     end
 
-    api_token = "UIJntIl4JdzoPutRU5kcksjwlzPSDGlR"
+    api_token = ENV["TOMTOM_API_TOKEN"]
     hotel_url = "https://api.tomtom.com/search/2/search/hotel.json?limit=10&lat=#{activity_lat}&lon=#{activity_long}&radius=30000&categorySet=7314&key=#{api_token}"
     hotel_serialized = URI.open(hotel_url).read
     hotel_detail = JSON.parse(hotel_serialized)
@@ -266,7 +266,7 @@ class TripsController < ApplicationController
 
   def tomtom_api_call(trip_request)
     # API Call
-    api_token = "UIJntIl4JdzoPutRU5kcksjwlzPSDGlR"
+    api_token = ENV["TOMTOM_API_TOKEN"]
     tomtom_request = "https://api.tomtom.com/routing/1/calculateRoute/#{trip_request}/json?computeBestOrder=true&routeRepresentation=polyline&routeType=fastest&avoid=unpavedRoads&travelMode=car&vehicleCommercial=false&key=#{api_token}"
     response_serialized = URI.open(tomtom_request).read
     @response_tomtom = JSON.parse(response_serialized, object_class: OpenStruct)

@@ -38,7 +38,7 @@
   position: relative;
   &:before {
     content: "";
-    background-image: url('ticket.svg');
+    background-image: asset-url('ticket.svg');
     background-size: contain;
     position: absolute;
     top: 0;

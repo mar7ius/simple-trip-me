@@ -14,29 +14,6 @@ Trip.destroy_all
 puts "creating default user"
 User.create(email: "michel@gmail.com", password: "lewagon")
 
-Flight.create(
-  departure: 'Paris-Charles de Gaulle',
-  compagnie_name: "Air France",
-  departure_date: Date.parse("2021-08-28"),
-  duration: 700,
-  arrival: "Aéroport international de San Francisco",
-  arrival_date: Date.parse("2021-08-28"),
-  airport_iata_code: "SFO",
-  price: 2474.to_f,
-  departure_flight: true
-)
-
-Flight.create(
-  departure: 'Aéroport international de San Francisco',
-  compagnie_name: "Air France",
-  departure_date: Date.parse("2021-09-01"),
-  duration: 600,
-  arrival: "Paris-Charles de Gaulle",
-  arrival_date: Date.parse("2021-09-01"),
-  airport_iata_code: "CDG",
-  price: 2479.to_f,
-)
-
 ACTIVITIES = [{
   name: "Yosemite",
   address: "Tioga Road Hwy 120 & Hwy 140 Yosemite National Park, CA 95389",
@@ -50,7 +27,7 @@ ACTIVITIES = [{
   },
 
   {
-  name: "Mariposa Museum & History Center",
+  name: "Mariposa Museum",
   address: "5119 Jessie St, Mariposa, CA 95338, United-States",
   longitude: -119.97116,
   latitude: 37.489475,
@@ -87,7 +64,7 @@ ACTIVITIES = [{
   },
 
   {
-  name: "Los Angeles County Museum of Art",
+  name: "LACMA",
   address: " 5905 Wilshire Blvd, Los Angeles, CA 90036, United-States",
   longitude: -118.360565,
   latitude: 34.064251,
@@ -111,7 +88,7 @@ ACTIVITIES = [{
   },
 
   {
-  name: "Private tour of the Griffith Observatory ",
+  name: "The Griffith Observatory ",
   address: "2800 E Observatory Rd, Los Angeles, CA 90027, United-States",
   longitude: -118.300463,
   latitude: 34.119311,
@@ -147,7 +124,7 @@ ACTIVITIES = [{
   },
 
       {
-  name: "San Diego Zoo Safari Park",
+  name: "Zoo Safari Park",
   address: " 15500 San Pasqual Valley Rd, Escondido, CA 92027, United-States",
   longitude: -117.002091,
   latitude: 33.095548,
@@ -159,7 +136,7 @@ ACTIVITIES = [{
   },
 
    {
-  name: "Death Valley National Park",
+  name: "Death Valley",
   address: "Furnace Creek, CA 92328, United-States",
   longitude: -116.808972,
   latitude: 36.421045,
@@ -195,7 +172,7 @@ ACTIVITIES = [{
   },
 
   {
-  name: "Las Vegas Cirque du soleil shows - Bellagio Hotel",
+  name: "Cirque du soleil shows",
   address: "Bellagio Drive, Las Vegas, NV 89109, United-States",
   longitude: -115.1743,
   latitude: 36.11157,
@@ -243,7 +220,7 @@ ACTIVITIES = [{
   },
 
   {
-  name: "Alcatraz Federal Penitentiary",
+  name: "Alcatraz",
   address: "San Francisco, Californie 94133, United-States",
   longitude: -122.41074,
   latitude: 37.81749,
@@ -267,7 +244,7 @@ ACTIVITIES = [{
   },
 
   {
-  name: "Sequoia National Park",
+  name: "Sequoia",
   address: "California, United-States",
   longitude: -118.59584,
   latitude: 36.45288,
@@ -291,7 +268,7 @@ ACTIVITIES = [{
   },
 
   {
-  name: "SeaWorld - San Diego",
+  name: "SeaWorld",
   address: "500 Sea World Dr., San Diego, CA 92109, United-States",
   longitude: -117.230969,
   latitude: 32.763173,
@@ -351,7 +328,7 @@ ACTIVITIES = [{
   },
 
   {
-  name: "Newport Landing Whale Watching",
+  name: "Newport Landing",
   address: "309 Palm St A, Newport Beach, CA 92661, United-States ",
   longitude: -117.900461,
   latitude: 33.603225,
@@ -363,7 +340,7 @@ ACTIVITIES = [{
   },
 
   {
-  name: "Excursion to Muir Woods and the vineyards",
+  name: "Muir Woods",
   address: "955 School Street Napa CA 94559, United-States",
   longitude: -122.2895309,
   latitude: 38.2973345,
@@ -375,7 +352,7 @@ ACTIVITIES = [{
   },
 
   {
-  name: "Monterey & Carmel Tours",
+  name: "Monterey",
   address: "3378-3404 17 Mile Dr, Pebble Beach, CA 93953, United-States",
   longitude: -121.931724,
   latitude: 36.563562,
@@ -404,35 +381,3 @@ ACTIVITIES = [{
 ACTIVITIES.each do |activity|
   Activity.create!(activity)
  end
-
-
-# puts "creating hotels :"
-Hotel.create(
-  name: "St. Regis San Francisco",
-  address: "125 Third Street, San Francisco, CA 94103, United-States",
-  stars: 5,
-  description: "Located in San Francisco's SoMa neighborhood, The St. Regis San Francisco features a full-service spa, an infinity pool and an on-site restaurant. This luxury hotel has rooms with flat-screen TVs. Union Square is an 8-minute walk away.",
-  price: 525.to_f,
-  longitude: -122.401322,
-  latitude: 37.786314
- )
-
-Hotel.create(
-  name: "The Palazzo at The Venetian",
-  address: "3325 Las Vegas Boulevard South, Strip, Las Vegas, NV 89109, United-States",
-  stars: 4,
-  description: "Located on the Las Vegas Strip. This luxury hotel includes a full-service spa and wellness club. Guests enjoy a pool deck overlooking the Strip and a state-of-the-art casino.",
-  price: 499.to_f,
-  longitude: -115.134132,
-  latitude: 36.181271
-)
-
- Hotel.create(
-  name: "Kimpton La Peer Hotel, an IHG Hotel",
-  address: "627 N LA PEER DR, West Hollywood, Los Angeles, CA 90069, United-States",
-  stars: 5,
-  description: "Located on a tree-lined street in the West Hollywood design district. It offers an on-site restaurant and a pool for relaxing.",
-  price: 405.to_f,
-  longitude: -118.3617443,
-  latitude: 34.0900091
- )

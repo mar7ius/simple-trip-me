@@ -2,14 +2,15 @@
   <div style="position: relative;">
     <%= image_tag "image_#{activity.code_image}.png" %>
   </div>
-  <div class="container py-2 card-activities">
-  <h3 class=" text-center "><%= activity.name%></h3>
+  <div class="container py-1 card-activities">
+  <h4 class=" text-center "><%= activity.name%></h4>
   <div class="card-content">
-    <h6><%= activity.category %></h6>
-    <p><%= activity.description.truncate(100) %></p>
+    <p class=" text-center "><%= activity.category %></p>
+    <p><%= activity.description.truncate(50) %></p>
       <div class="d-flex justify-content-between w-100">
-      <h5><i class="fas fa-money-check"></i>  <%= activity.price %> $</h5>
-      <h5><i class="fas fa-stopwatch"></i> <%= activity.duration%></h5>
+
+      <h5><i class="fas fa-dollar-sign"></i>  <%= activity.price %> $</h5>
+      <h5><i class="far fa-clock pr-2"></i> <%= activity.duration%></h5>
       </div>
   </div>
   </div>

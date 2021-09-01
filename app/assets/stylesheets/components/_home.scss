@@ -1,16 +1,18 @@
   .banner {
-  height: 100vh;
+  height: 70vh;
   background-size: cover;
   color: rgb(248, 245, 245);
 
 
   }
   .banner-bloc-text {
-	width: 400px;
-	top:200px;
-  position: relative;
-  margin-left: 200px;
-  margin-right: 300px;
-	padding:0px;
-	text-align:left;
+	width: 434px;
+  padding-top: 100px !important;
+
+  p {
+    font-weight: normal;
+  }
 	}
+  .text-home {
+    padding-top: 140px !important;
+  }
