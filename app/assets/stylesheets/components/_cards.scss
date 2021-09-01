@@ -44,7 +44,8 @@
   height: 20vh;
   object-fit: cover;
   width: 100%;
-  border-radius: 8px;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
 }
 
 .card h3,h4,h5,h6 {
@@ -53,16 +54,16 @@
 
 .card {
   height: 100% !important;
+  border-radius: 8px;
 }
 
 .card h4 {
-
   top: 35%;
   text-align: center;
   width: 100%;
   color: #40E0D0;
-
 }
+
 .card-item {
   display: inline-block;
 }
@@ -75,23 +76,29 @@
 .activity-selector + label {
   cursor: pointer;
   display: inline-block;
-  border: 4px solid #ebebf0;
+  border: 4px solid transparent;
   margin-bottom: 5px;
   height: 100%;
 }
 
 .activity-selector:checked + label {
-  border-color: #10beca;
+  border-color: #40E0D0;
+
 }
 
 .form-check-input:checked + label {
   border-color: #166977;
+  border-radius: 8px;
+
 }
 
 
 .card-activities {
-  height: 150px;
+  height: 160px;
+  padding: 20px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  line-height: 17px;
+  border-radius: 8px;
 }

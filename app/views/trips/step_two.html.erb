@@ -6,8 +6,8 @@
     </div>
   </div>
 
-  <div class="container py-5 text-center ">
-   <h1> Choose your activities in <%= @trip.destination.capitalize %></h1>
+  <div class="container py-5">
+   <h1 class="center-choose">Choose your activities in <%= @trip.destination.capitalize %></h1>
   </div>
     <%= simple_form_for @trip, url: activity_choice_trip_path(@trip), method: :post, data: { loader_target: 'submit', action: 'submit->loader#submit' } do |f| %>
       <%= f.association :trip_activities, as: :check_boxes,
@@ -15,7 +15,8 @@
                         input_html: { class: "activity-selector" },
                         item_wrapper_class: 'activity-item',
                         collection: Activity.where.not(category: 'City'), label_method: lambda { |activity| render("activity_infos", activity: activity)  }, value_method: :id, class: '' %>
-      <%= f.submit "Validate your activities",
-                    class: 'btn btn-koral mb-5' %>
+      <div class="d-flex justify-content-center py-4">
+        <%= f.submit "Validate your activities", class: 'btn btn-koral'%>
+      </div>
     <% end %>
 </div>
