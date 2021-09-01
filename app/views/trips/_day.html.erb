@@ -21,7 +21,7 @@
           <% if step[:type] == "activity" %>
             <% @activity = Activity.find(step[:id]) %>
 
-            <h4><em>Activity: <%= @activity.name %></em></h4>
+            <h4 class="space-activity"><em>Activity: <%= @activity.name %></em></h4>
             <p><strong>Duration:</strong> <%= @activity.duration %> minutes</p>
             <p><strong>Category:</strong> <%= @activity.category %></p>
             <p><strong>Description:</strong> <%= @activity.description %></p>
