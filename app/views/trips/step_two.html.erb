@@ -2,10 +2,10 @@
   <div class="loader d-none" data-loader-target="modal">
     <div class="loader-block" style="background-image: url(<%= asset_path 'airplane-loader.gif'%>); background-size: cover;">
       <h2>We are compiling your trip, it could take a few seconds</h2>
-      <h4>Tips: Don't forget the sunscreen ! 😉</h4>
+      <h4>Tips: Don't forget the sunscreen! 😉</h4>
     </div>
   </div>
-  <div class="main-wrapper">
+  <div class="main-wrapper" data-controller="masonry" data-action="scroll@window->masonry#toggleAnimate">
     <div class="container py-5">
     <h1 class="center-choose">Choose your activities in <%= @trip.destination.capitalize %></h1>
     </div>
