@@ -43,7 +43,7 @@
 
 .select2-container--bootstrap .select2-search--dropdown .select2-search__field {
     border-radius: 2.25rem;
-    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    // transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
     background-color: #fff;
     border: 1px solid #ced4da;
     color: inherit;
@@ -62,7 +62,7 @@
 // Default Selected Label
 .select2-container--bootstrap .select2-selection {
     border-radius: 15px;
-    transition: border-color 0.1s ease-in-out, box-shadow 0.15s ease-in-out;
+    // transition: border-color 0.1s ease-in-out, box-shadow 0.15s ease-in-out;
     background-color: #fff;
     border: 1px solid #ced4da;
     color: inherit;
@@ -131,27 +131,43 @@
 }
 
 .grouped_select > label {
-    position: relative;
-    top: 0;
+    // position: relative;
+    // top: 0;
     // left: 15px;
-    z-index: 10000;
+    z-index: 10;
 }
 
+// Block label + value
 .grouped_select.optional.trip_departure_flight > label {
-  top: 0px;
-  left: 20px;
-}
-.grouped_select.optional.trip_arrival_flight > label {
-  top: 0px;
-  left: 10px;
+  position: absolute;
+  top: 5px;
+  left: 15px;
+  opacity: 0.7;
 }
 
 #select2-trip_departure_flight-container {
   top: 0px;
-  left: 50px;
+  left: 60px;
 }
+
+
+.grouped_select.optional.trip_arrival_flight > label {
+  position: absolute;
+  top: 5px;
+  left: 15px;
+  opacity: 0.7;
+}
+
 
 #select2-trip_arrival_flight-container {
   top: 0px;
-  left: 50px;
+  left: 40px;
+}
+
+.grouped_select.optional {
+  position: relative;
+}
+
+.select2-search__field {
+  outline: none;
 }
