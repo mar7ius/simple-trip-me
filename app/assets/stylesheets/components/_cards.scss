@@ -48,10 +48,6 @@
   border-top-right-radius: 8px;
 }
 
-.card h3,h4,h5,h6 {
-  color: rgb(12, 12, 12);
-}
-
 .card {
   height: 100% !important;
   border-radius: 8px;
@@ -90,9 +86,7 @@
 .form-check-input:checked + label {
   border-color: #166977;
   border-radius: 12px;
-
 }
-
 
 .card-activities {
   height: 160px;
@@ -103,6 +97,7 @@
   line-height: 17px;
   border-radius: 8px;
 }
+
 .card-description {
   display: none;
   transition: 0.3s ease;
