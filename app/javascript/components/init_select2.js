@@ -8,7 +8,6 @@ const initSelect2 = () => {
 
     // placeholder: 'Select an option'
     templateSelection: function (data) {
-      console.log(data.id)
       if (data.id === 'Adelaide') {
         return "Ex. Florence"
       } else if (data.id === 'Barcelona') {
