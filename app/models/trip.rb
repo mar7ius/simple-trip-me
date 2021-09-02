@@ -1,8 +1,21 @@
 class Trip < ApplicationRecord
   AIRPORTS_ORIGIN = ["PAR", "TLS"]
-  CITIES_ORIGIN = ["Paris", "Toulouse"]
+  CITIES_ORIGIN = {
+    ["Madrid", "Barcelona"].sort! => "Espagna",
+    ["Paris", "Lyon", "Bordeaux", "Toulouse", "Marseille"].sort! => "France",
+    ["Berlin", "Frankfurt"].sort! => "Germany",
+    ["London", "Manchester", "Liverpool", "Edimburg", "Glasgow"].sort! => "United Kingdom",
+  }
   AIRPORTS_DESTINATION = ["SFO", "LAX"]
-  CITIES_DESTINATION = ["San Francisco", "Los Angeles"]
+  CITIES_DESTINATION = {
+    ["Adelaide", "Melbourne", "Sydney", "Canberra"].sort! => "Australia",
+    ["San Francisco", "Los Angeles", "Las Vegas"].sort! => "California",
+    ["Montreal", "Quebec City", "Toronto", "Vancouver"].sort! => "Canada",
+    ["Athens", "Mykonos", "Paros", "Santorini"].sort! => "Cyclades",
+    ["Pisa", "Florence", "Roma", "Bologna"].sort! => "Tuscany",
+    ["Salt Lake City", "St George", "Provo", "Cedar City"].sort! => "Utah",
+    ["Port Elizabeth", "Cape Town", "Maseru", "Durban"].sort! => "Wild Coast",
+  }
   attr_accessor :departure_flight, :arrival_flight
 
   belongs_to :user
