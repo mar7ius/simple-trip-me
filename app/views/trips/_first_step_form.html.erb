@@ -10,7 +10,8 @@
         <%# <%= f.input label: "rounded ?", type="checkbox" value="false" %>
       </div>
       <div class="d-flex justify-content-around">
-          <%= f.input :departure_flight, input_html: { class: 'select2'}, collection: Trip::CITIES_ORIGIN,
+          <%= f.input :departure_flight, label: '<i class="fas fa-plane-departure"></i>'.html_safe,
+          input_html: { class: 'select2'}, collection: Trip::CITIES_ORIGIN,
           label: false, selected: "Paris" %>
 
           <%= f.input :arrival_flight, input_html: { class: 'select2'}, collection: Trip::CITIES_DESTINATION,
