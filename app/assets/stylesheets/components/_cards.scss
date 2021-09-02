@@ -128,3 +128,72 @@
     display: none;
   }
 }
+.accordion-card-activities {
+  width: 100%;
+  padding: 0;
+  padding-top: 0;
+  line-height: 17px;
+  box-shadow: 10px 5px 5px rgba(37, 88, 83, 0.2);
+  border-radius: 8px;
+  margin-bottom: 15px;
+}
+
+.duration-drive {
+  color: lightgray;
+  font-weight: lighter;
+  padding: 0;
+  margin-bottom: 25px;
+  p {
+    margin: 5px;
+    line-height: 1.5em;
+  }
+}
+
+.text-desc {
+  line-height: 1.5em;
+}
+
+.content {
+  padding: 20px;
+  background-color: white;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+  position: relative;
+  font-size: 17px;
+}
+
+.content-category {
+  position: absolute;
+  color: $turquoise;
+  box-shadow: 10px 5px 5px 5px rgba(37, 88, 83, 0.2);
+  border-radius: 18px;
+  padding: 10px;
+  top: -13px;
+  right: 55px;
+  background-color: white;
+}
+
+#days-container {
+  max-width: 45% !important;
+  width: 45%;
+  margin: 0;
+  margin-left: 20px;
+}
+
+.image-hotel {
+    height: 20vh;
+    background-position: center;
+    background-size: cover;
+    width: 100%;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    vertical-align: middle;
+}
+
+.card h3 {
+  color: $dark-green;
+}
+
+.text {
+  margin-bottom: 20px;
+}
