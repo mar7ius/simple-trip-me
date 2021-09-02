@@ -10,11 +10,11 @@
         <%# <%= f.input label: "rounded ?", type="checkbox" value="false" %>
       </div>
       <div class="d-flex justify-content-around">
-          <%= f.input :departure_flight, input_html: { class: 'select2'}, collection: Trip::CITIES_ORIGIN,
-          label: false, selected: "Paris" %>
+          <%= f.input :departure_flight, input_html: { class: 'select2'}, :as => :grouped_select, collection: Trip::CITIES_ORIGIN,
+          :group_method => :first, :group_label_method => :last, selected: "", label: "From" %>
 
-          <%= f.input :arrival_flight, input_html: { class: 'select2'}, collection: Trip::CITIES_DESTINATION,
-          label: false, selected: "San Francisco" %>
+          <%= f.input :arrival_flight, input_html: { class: 'select2'}, :as => :grouped_select, collection: Trip::CITIES_DESTINATION,
+          :group_method => :first, :group_label_method => :last, selected: "", label: "To" %>
 
           <%= f.input :start_date, as: :string, label: "Date of departure", placeholder: 'jj/mm/yyyy', required: false, input_html: {class: "datepicker"},
           label: false %>
