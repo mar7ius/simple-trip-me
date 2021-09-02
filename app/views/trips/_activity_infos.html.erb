@@ -1,4 +1,4 @@
-<div class="card act" style="width: 30vw;">
+<div class="card act" style="width: 30vw;" data-masonry-target="img">
   <div style="position: relative;">
     <%= image_tag "image_#{activity.code_image}.png" %>
   </div>
@@ -6,7 +6,7 @@
     <h4 class=" text-center "><%= activity.name%></h4>
     <div class="card-infos">
       <p class=" text-center "> <strong><%= activity.category %></strong></p>
-      <p><%= activity.description.truncate(50) %></p>
+      <p class="line-clamp"><%= activity.description %></p>
         <div class="d-flex justify-content-between w-100">
           <% if activity.price == 0.00 %>
             <h5>Free!</h5>
