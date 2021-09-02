@@ -3,12 +3,12 @@
   <div class="center-choose pt-5">
     <h1 >Your Trip's summary :</h1>
     <h2>Arriving at <%= Activity.find(@trip_summary[:originPointActivityId]).name %>'s Airport</h2>
-    <h2>Total budget of your trip: <%= @trip.price %></h2>
+    <h2>Total budget of your trip: $ <%= @trip.price.round %></h2>
   </div>
 
 
   <div class="d-flex justify-content-around">
-    <div id="days-container" class="container p-4">
+    <div id="days-container" class="container pt-4">
       <% @all_days.each_with_index do |day, index| %>
         <%= render 'trips/day', day: day, index: index %>
       <% end %>
@@ -16,7 +16,7 @@
 
     <div class="map-container">
       <div id="map"
-        style="width: 500px; height: 100vh;"
+        style="width: 1000px; height: 100vh;"
         data-markers="<%= @markers.to_json %>"
         data-markers_hotels="<%= @markers_hotels.to_json %>"
         data-route="<%= @routes.to_json %>"

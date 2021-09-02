@@ -1,43 +1,51 @@
 <div id="accordion" class="card-day">
   <div class="card">
     <div class="card-header d-flex align-item-center justify-content-between" id="heading<%= index %>" data-toggle="collapse" data-target="#collapse<%= index %>" aria-expanded="true" aria-controls="collapse<%= index %>">
-      <h3 class="mb-0">Day n° <%= day.last[:day] %></h3>
+      <h2 class="mb-0">Day n° <%= day.last[:day] %></h2>
       <i class="fas fa-chevron-down d-flex align-items-center"></i>
     </div>
 
     <div id="collapse<%= index %>" class="collapse <%= index == 0 ? 'show' : ''%>" aria-labelledby="heading<%= index %>" data-parent="#accordion">
       <div class="card-body">
-        <p><strong>Total duration:</strong> <%= Time.at(day[-2][:totalDayDuration]).utc.strftime("%H:%M:%S") %></p>
-        <% day.each do |step| %>
-          <% if step[:type] == "ride" %> <%#&& ((step[:from] || step[:to]) != "origin")><%>
-            <% @activity_from = Activity.find(step[:from_id]) %>
-            <% @activity_to = Activity.find(step[:to_id]) %>
-            <p>
-              Driving from <strong><%= @activity_from.name %></strong> to <strong><%= @activity_to.name %></strong>
-              ( Driving time : <%= Time.at(step[:duration]).utc.strftime("%H:%M:%S") %> )
-            </p>
+        <%# <div class="container py-2 d-flex"> %>
+          <% day.each do |step| %>
+            <% if step[:type] == "ride" %> <%#&& ((step[:from] || step[:to]) != "origin")><%>
+              <% @activity_from = Activity.find(step[:from_id]) %>
+              <% @activity_to = Activity.find(step[:to_id]) %>
+            <% end %>
+            <% if step[:type] == "activity" && Activity.find(step[:id]) %>
+              <% @activity = Activity.find(step[:id]) %>
+              <h2 style="margin: 40px 0px 10px 0px;"><strong>Activity</strong> <small> (Total duration: <%= Time.at(day[-2][:totalDayDuration]).utc.strftime("%kh%M")%>)</small></h2>
+              <div class='accordion-card-activities'>
+                <div>
+                  <%= image_tag "image_#{@activity.code_image}.png" %>
+                </div>
+                <div class="content">
+                  <p class="content-category"><i class="fas fa-landmark"></i> <%= @activity.category %></p>
+                  <h3 class="text"><strong> <%= @activity.name %></strong></h3>
+                  <div class="duration-drive">
+                    <p> <i style="padding-right: 4px;" class="far fa-clock"></i>  duration: <%= @activity.formatted_duration %></p>
+                    <p><i class="fas fa-car-side"></i>  drive: <%= Time.at(step[:duration]).utc.strftime("%kh%M") %> from <%= @activity_from.name %> to <%= @activity_to.name %></p>
+                  </div>
+                  <p class='text-desc'><%= @activity.description %></p>
+                </div>
+              </div>
+            <% end %>
           <% end %>
-
-          <% if step[:type] == "activity" %>
-            <% @activity = Activity.find(step[:id]) %>
-
-            <h4 class="space-activity"><em>Activity: <%= @activity.name %></em></h4>
-            <p><strong>Duration:</strong> <%= @activity.duration %> minutes</p>
-            <p><strong>Category:</strong> <%= @activity.category %></p>
-            <p><strong>Description:</strong> <%= @activity.description %></p>
-
-          <% end %>
-
-          <%# <% if step[:type] == "ride" && step[:to] == "origin" %>
-
-        <% end %>
-        <h5><em>Your hotel for the night :</em></h5>
-        <% @hotel = Hotel.find(TripHotel.where(trip: @trip, day: day.last[:day])[0].hotel_id) %>
-        <p><%= @hotel.name %></p>
-        <p><%= @hotel.address %></p>
-        <p><%= @hotel.rating %></p>
-        <div style="background-image: url(<%= @hotel.img_link %>); width: 250px; height: 250px; object-fit: cover;">
-        </div>
+          <h2 style="margin: 40px 0px 10px 0px;">Hotel</h2>
+          <div class='accordion-card-activities'>
+            <div class="image-hotel" style="background-image: url(<%= @hotel.img_link %>);">
+            </div>
+            <div class="content">
+              <p class="content-category"><i class="far fa-star"></i> <%= @hotel.rating %></p>
+              <% @hotel = Hotel.find(TripHotel.where(trip: @trip, day: day.last[:day])[0].hotel_id) %>
+              <div class="duration-drive">
+              <h5><i class="fas fa-bed"></i> <strong><%= @hotel.name %></strong></h5>
+              <p><i style="padding-right: 13px;" class="fas fa-map-pin"></i> <em><%= @hotel.address %></em></p>
+              </div>
+            </div>
+          </div>
+        <%# </div> %>
       </div>
     </div>
   </div>
