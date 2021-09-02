@@ -6659,6 +6659,11 @@ select-hose@^2.0.0:
   resolved "https://registry.yarnpkg.com/select-hose/-/select-hose-2.0.0.tgz#625d8658f865af43ec962bfc376a37359a4994ca"
   integrity sha1-Yl2GWPhlr0Psliv8N2o3NZpJlMo=
 
+select2-theme-bootstrap4@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/select2-theme-bootstrap4/-/select2-theme-bootstrap4-1.0.0.tgz#dfed2b252d36089ba7145121f5134e8fe2842a73"
+  integrity sha512-WJH1GMnHir+/EnW7ANZq2VfmRGXWNEySPULQ+zCcVRyVs3B1qyLZ0XFflZNo1FlbxYxBsIQH6QsqnNEyNudU1g==
+
 select2@^4.1.0-rc.0:
   version "4.1.0-rc.0"
   resolved "https://registry.yarnpkg.com/select2/-/select2-4.1.0-rc.0.tgz#ba3cd3901dda0155e1c0219ab41b74ba51ea22d8"
