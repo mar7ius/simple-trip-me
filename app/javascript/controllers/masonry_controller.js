@@ -10,8 +10,8 @@ export default class extends Controller {
   toggleAnimate(e) {
     this.imgTargets.forEach((img) => {
       if (window.innerHeight >= img.getBoundingClientRect().top) {
-        if (!img.classList.contains("animate")) {
-          img.classList.add("animate")
+        if (!img.classList.contains("animate-card")) {
+          img.classList.add("animate-card")
         }
       }
     })
