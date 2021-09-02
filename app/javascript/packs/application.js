@@ -29,6 +29,7 @@ import { initMapbox } from '../plugins/init_mapbox';
 import { initFlatpickr } from "../plugins/flatpickr";
 import { initSelect2 } from '../components/init_select2';
 import { initUpdateNavbarOnScroll } from '../components/navbar';
+import { counter } from '../components/counter';
 
 // Internal imports, e.g:
 // import { initSelect2 } from '../components/init_select2';
@@ -40,4 +41,5 @@ document.addEventListener('turbolinks:load', () => {
   initMapbox();
   initFlatpickr();
   initUpdateNavbarOnScroll();
+  counter();
 });

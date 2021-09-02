@@ -2,14 +2,33 @@
   <div class="container-form p-4 vw-70">
 
     <%= simple_form_for trip do |f| %>
-      <div>
-        <%= f.input :nb_people, label: '<i class="fas fa-user-alt"></i>'.html_safe,
+      <%# <div>
+        <%= f.input :nb_people, collection: (1..10),
+                    as: => :grouped_select,
+                    # input_html: { class: 'select21'},
+                    label: '<i class="fas fa-user-friends"></i>'.html_safe,
                     label_html: {class: 'nb-people-label'},
                     wrapper_html: {class: 'd-flex'},
                     input_html: {class: 'nb-people-input'} %>
         <%# <%= f.input label: "rounded ?", type="checkbox" value="false" %>
+      <%# </div> %>
+
+      <div class="counter">
+        <i class="fas fa-user-friends nb-travelers mx-1"></i>
+        <div class="counter-flex">
+          <div class="counter-btn mx-1" id="minus">
+            <i class="fas fa-minus minus-icn"></i>
+          </div>
+          <div class="number-div">
+            <span id="number" class="mx-2"></span>
+          </div>
+          <div class="counter-btn mx-1" id="plus">
+            <i class="fas fa-plus plus-icn"></i>
+          </div>
+        </div>
       </div>
-      <div class="d-flex justify-content-around">
+
+      <div class="d-flex justify-content-between">
           <%= f.input :departure_flight, input_html: { class: 'select2'}, :as => :grouped_select, collection: Trip::CITIES_ORIGIN,
           :group_method => :first, :group_label_method => :last, selected: "", label: "From" %>
 

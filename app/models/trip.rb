@@ -1,7 +1,7 @@
 class Trip < ApplicationRecord
   AIRPORTS_ORIGIN = ["PAR", "TLS"]
   CITIES_ORIGIN = {
-    ["Madrid", "Barcelona"].sort! => "Espagna",
+    ["Madrid", "Barcelona"].sort! => "Spain",
     ["Paris", "Lyon", "Bordeaux", "Toulouse", "Marseille"].sort! => "France",
     ["Berlin", "Frankfurt"].sort! => "Germany",
     ["London", "Manchester", "Liverpool", "Edimburg", "Glasgow"].sort! => "United Kingdom",

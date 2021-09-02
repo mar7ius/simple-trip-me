@@ -36,7 +36,7 @@
 
 .select2-search--dropdown {
     display: block;
-    padding: 4px;
+    padding: 6px 4px 10px 4px;
     border: none;
 }
 
@@ -140,9 +140,12 @@
 // Block label + value
 .grouped_select.optional.trip_departure_flight > label {
   position: absolute;
-  top: 5px;
+  top: 6px;
   left: 15px;
-  opacity: 0.7;
+  opacity: 0.8;
+  color: #5F738C;
+  font-weight: 400;
+  margin-bottom: 0px;
 }
 
 #select2-trip_departure_flight-container {
@@ -153,9 +156,12 @@
 
 .grouped_select.optional.trip_arrival_flight > label {
   position: absolute;
-  top: 5px;
+  top: 6px;
   left: 15px;
-  opacity: 0.7;
+  opacity: 0.8;
+  color: #5F738C;
+  font-weight: 400;
+  margin-bottom: 0px;
 }
 
 
@@ -170,4 +176,15 @@
 
 .select2-search__field {
   outline: none;
+}
+
+.select2-results {
+    display: block;
+    overflow: auto;
+    height: 250px;
+}
+
+.select2-results__option.select2-results__message {
+  color: $dark-green;
+  text-align: center;
 }
