@@ -20,7 +20,7 @@ ACTIVITIES = [{
   longitude: -119.538329,
   latitude: 37.865101,
   category: 'National park',
-  description: "Yosemite is an American national park, located in the Sierra Nevada Mountains in the eastern state of California.",
+  description: "Yosemite is an American national park, located in the Sierra Nevada Mountains in the eastern state of California. It is the third largest national park in California after Death Valley.",
   duration: 900,
   price: 35.to_f,
   code_image: "001"
@@ -44,7 +44,7 @@ ACTIVITIES = [{
   longitude: -118.243685,
   latitude: 34.052234,
   category: 'City',
-  description: 'With more than 18.5 million people in its metropolitan area and 1,302 square kilometers of land, it is the second largest city in the United States.',
+  description: 'Located in the southern part of the state of California, 18.5 million people in its metropolitan area and 1,302 square kilometers of land, it is the second largest city in the United States.',
   duration: 1500,
   price: 00.to_f,
   code_image: "003"
@@ -56,8 +56,7 @@ ACTIVITIES = [{
   longitude: -117.923709,
   latitude: 33.815412,
   category: 'Amusement park',
-
-  description: "Explore the magic of Disneyland Park and Disney California Adventure Park.",
+  description: "Disneyland is a theme park located in the city of Anaheim, California, USA. Explore the magic of Disneyland and Disney California Adventure Park. About 30 miles southeast of Los Angeles.",
   duration: 420,
   price: 210.to_f,
   code_image: "004"
@@ -69,7 +68,7 @@ ACTIVITIES = [{
   longitude: -118.360565,
   latitude: 34.064251,
   category: 'Museum',
-  description: "The Los Angeles County Museum of Art was originally the Museum of Science, History and Art, and has been dedicated to art since 1961.",
+  description: "The Los Angeles County Museum of Art was originally the Museum of Science, History and Art, and has been dedicated to art since 1961.Located in the Miracle Mile neighborhood of Los Angeles.",
   duration: 180,
   price: 50.to_f,
   code_image: "005"
@@ -81,7 +80,7 @@ ACTIVITIES = [{
   longitude: -118.351175,
   latitude: 34.135315,
   category: 'Amusement park',
-  description: "Universal Studios Hollywood is a theme park owned by NBC Universal and located in Universal City in the suburbs of Los Angeles, California. The park is located next to the Universal Studios owned by Universal Pictures, which is part of the tour with the Studio Tour.",
+  description: "Universal Studios Hollywood is a theme park in Universal City in Los Angeles. Located next to the Universal Studios owned by Universal Pictures, which is part of the tour with the Studio Tour.",
   duration: 420,
   price: 220.to_f,
   code_image: "006"
@@ -93,7 +92,7 @@ ACTIVITIES = [{
   longitude: -118.300463,
   latitude: 34.119311,
   category: 'Visit',
-  description: " Called the hood ornament of Los Angeles, it serves as a public observatory, planetarium and exhibit space. Designed by some of its former employees, this tour will give you an introduction to the city you'll never forget. ",
+  description: "The hood ornament of Los Angeles, it serves as a public observatory, planetarium and exhibit space. Designed by some of its former employees, this tour give an introduction to the city.",
   duration: 120,
   price: 220.to_f,
   code_image: "007"
@@ -105,7 +104,7 @@ ACTIVITIES = [{
   longitude: -118.333694,
   latitude: 34.101639,
   category: 'Walk',
-  description: "The Hollywood Walk of Fame is a famous sidewalk in the Hollywood neighborhood of the city of Los Angeles. Located on Hollywood Boulevard, featured on the sidewalk of this walk are badges, permanent public monuments, in the names of various celebrities in the entertainment industry.",
+  description: "The Hollywood Walk of Fame is a famous sidewalk in the Hollywood neighborhood of the city of Los Angeles, featured on the sidewalk of this walk are badges, permanent public monuments.",
   duration: 120,
   price: 00.to_f,
   code_image: "008"
@@ -129,7 +128,7 @@ ACTIVITIES = [{
   longitude: -117.002091,
   latitude: 33.095548,
   category: 'Zoological park',
-  description: "San Diego Zoo Safari Park is a zoological park in San Pasqual Valley in San Diego, California, near Escondido. The park is home to a wide range of wild and endangered animals and species from every continent.",
+  description: "San Diego Zoo Safari Park is a zoological park in San Pasqual Valley in San Diego. The park is home to a wide range of wild and endangered animals and species from every continent.",
   duration: 360,
   price: 320.to_f,
   code_image: "010"
@@ -141,7 +140,7 @@ ACTIVITIES = [{
   longitude: -116.808972,
   latitude: 36.421045,
   category: 'National park',
-  description: "Death Valley National Park is located east of the Sierra Nevada Mountains in California and extends into Nevada. It is an arid zone park and contains the largest desert terrain in the continental United States.",
+  description: "Death Valley National Park is located east of the Sierra Nevada Mountains in California and extends into Nevada. It is an arid zone park and contains the largest desert terrain in US.",
   duration: 360,
   price: 25.to_f,
   code_image: "011"
@@ -153,7 +152,7 @@ ACTIVITIES = [{
   longitude: -115.423827,
   latitude: 36.132108,
   category: 'National park',
-  description: "Red Rock Canyon is located 20 km west of Las Vegas in the state of Nevada in the southwestern United States. It belongs to the arid environment of the Mojave Desert.",
+  description: "Red Rock Canyon is located 20 km west of Las Vegas (Nevada) in the southwestern US. It belongs to the arid environment of the Mojave Desert. It presents one of the walls of red sandstone.",
   duration: 180,
   price: 15.to_f,
   code_image: "012"
@@ -165,7 +164,7 @@ ACTIVITIES = [{
   longitude: -115.139830,
   latitude: 36.169941,
   category: 'City',
-  description: "Located in a valley on the borders of California, Arizona and Utah, Las Vegas is surrounded by snow-capped mountains in winter.",
+  description: "Located in a valley on the borders of California, Arizona and Utah, Las Vegas is surrounded by mountains. One of the largest U.S. cities of Nevada and a major economic and tourist center.",
   duration: 1500,
   price: 00.to_f,
   code_image: "013"
@@ -177,7 +176,7 @@ ACTIVITIES = [{
   longitude: -115.1743,
   latitude: 36.11157,
   category: 'Show',
-  description: "Immerse yourself in the world of O, Cirque du Soleil's original water show at the Bellagio that ranks among the top activities in Las Vegas.",
+  description: "Immerse yourself in the world of O, the original show from Cirque du Soleil's at the Bellagio that ranks among the top activities in Las Vegas. Rated one of the best things to do in Las Vegas.",
   duration: 90,
   price: 193.to_f,
   code_image: "014"
@@ -185,11 +184,11 @@ ACTIVITIES = [{
 
   {
   name: "Monument Valley",
-  address: "Indn Route 42, Oljato-Monument Valley, AZ 84536, United-States",
+  address: "Indian Route 42, Oljato-Monument Valley, AZ 84536, United-States",
   longitude: -110.173479,
   latitude: 37.004245,
   category: 'Tribal park',
-  description: "Monument Valley is an American natural site located on the border between Arizona and Utah, near the Four Corners. It is remarkable by its geomorphological formations composed in particular of mesas and buttes.",
+  description: "Monument Valley is an American natural site located on the border between Arizona and Utah, near the Four Corners. It is remarkable by its geomorphological formations (mesas and buttes).",
   duration: 360,
   price: 20.to_f,
   code_image: "015"
@@ -201,7 +200,7 @@ ACTIVITIES = [{
   longitude: -122.431297,
   latitude: 37.773972,
   category: 'City',
-  description: "San Francisco is a large city located on the west coast of the United States of America, in the state of California.",
+  description: "A large city located on the west coast of the US of America (California). It is famous for its permanent fog, the iconic Golden Gate Bridge, its Cable Cars and its colorful Victorian houses.",
   duration: 900,
   price: 00.to_f,
   code_image: "016"
@@ -213,7 +212,7 @@ ACTIVITIES = [{
   longitude: -122.47872,
   latitude: 37.82034,
   category: 'Walk',
-  description: "The Golden Gate Bridge is a suspension bridge spanning the Golden Gate, the one-mile-wide (1.6 km) strait connecting San Francisco Bay and the Pacific Ocean.",
+  description: "The Golden Gate Bridge is a suspension bridge (1.6 km) strait connecting San Francisco Bay and the Pacific. It connects the city oat the northern tip of the San Francisco to the city of Sausalito.",
   duration: 90,
   price: 16.to_f,
   code_image: "017"
@@ -225,7 +224,7 @@ ACTIVITIES = [{
   longitude: -122.41074,
   latitude: 37.81749,
   category: 'Museum',
-  description: "The Rock was a maximum security federal prison on Alcatraz Island, 1.25 miles (2.01 km) off the coast of San Francisco,",
+  description: "The Rock was a maximum security federal prison on Alcatraz Island, 1.25 miles off the coast of San Francisco, It was named by the Spaniards because it served as a refuge for many pelicans.",
   duration: 180,
   price: 150.to_f,
   code_image: "018"
@@ -237,7 +236,7 @@ ACTIVITIES = [{
   longitude: -122.409821,
   latitude: 37.808673,
   category: 'Walk',
-  description: "With family-friendly attractions, fine hotels and excellent restaurants, Fisherman's Wharf is a magnet for all visitors. Street performers, streetcars and museums make this area a real postcard.",
+  description: "With family-friendly attractions, hotels and excellent restaurants, Fisherman's Wharf is a magnet for all visitors. Street performers and museums make this area a real postcard.",
   duration: 240,
   price: 00.to_f,
   code_image: "019"
@@ -273,7 +272,7 @@ ACTIVITIES = [{
   longitude: -117.230969,
   latitude: 32.763173,
   category: 'Amusemet park',
-  description: "SeaWorld San Diego is home to world-class animal shows, presentations and exhibits, spread out on beautiful Mission Bay Park.",
+  description: "SeaWorld San Diego is home to world-class animal shows, presentations and exhibits, spread out on beautiful Mission Bay Park. Discover the wonderful world of marine animals. ",
   duration: 240,
   price: 170.to_f,
   code_image: "022"
@@ -285,7 +284,7 @@ ACTIVITIES = [{
   longitude: -122.418892,
   latitude: 37.801945,
   category: 'Walk',
-  description: "Lombard is a huge, heavily used street that runs through San Francisco from the Presidio to the Embarcadero. It is best known for a tiny one-block stretch in the Russia Hill neighborhood, between Hyde St and Leavenworth. Eight sharp turns make it one of the most winding roads in the US (there is a debate with Snake Alley in Burlington, Iowa and Vermont Street, also in San Francisco, between 20th and 22nd).",
+  description: "Lombard is a huge, heavily used street that runs through San Francisco from the Presidio to the Embarcadero. It is best known for a tiny one-block stretch in the Russia Hill neighborhood.",
   duration: 120,
   price: 00.to_f,
   code_image: "023"
@@ -297,7 +296,7 @@ ACTIVITIES = [{
   longitude: -118.262219,
   latitude: 34.032040,
   category: 'Museum',
-  description: "The Hammer Museum is affiliated with the University of California, Los Angeles, and is an art museum and cultural center that exhibits a diverse collection of art from the Renaissance to the present",
+  description: "The Hammer Museum is affiliated with the University of Los Angeles, and is an art museum and cultural center that exhibits a diverse collection of art from the Renaissance to the present.",
   duration: 180,
   price: 14.to_f,
   code_image: "024"
@@ -309,7 +308,7 @@ ACTIVITIES = [{
   longitude: -119.039352,
   latitude: 37.650301,
   category: 'Walk',
-  description: "Mammoth Mountain is a volcano that lies west of the town of Mammoth Lakes in the Inyo National Forest. Mammoth Mountain is famous for its ski area and its strong snow cover due to its privileged location in the Sierra Nevada..",
+  description: "Mammoth is a volcano that lies west of the town of Mammoth Lakes (Inyo National Forest), famous for its ski area and its strong snow cover due to its privileged location in the Sierra Nevada.",
   duration: 120,
   price: 00.to_f,
   code_image: "025"
@@ -321,7 +320,7 @@ ACTIVITIES = [{
   longitude: -114.73745,
   latitude: 36.01613,
   category: 'Walk',
-  description: "Hoover Dam is a concrete arch-gravity dam in the Black Canyon of the Colorado River, on the border between the U.S. states of Nevada and Arizona.",
+  description: "Hoover Dam is a concrete arch-gravity dam in the Black Canyon of the Colorado River, on the border between the United states of Nevada and Arizona. It was built between 1931 and 1936.",
   duration: 180,
   price: 5.to_f,
   code_image: "026"
@@ -333,7 +332,7 @@ ACTIVITIES = [{
   longitude: -117.900461,
   latitude: 33.603225,
   category: 'Show',
-  description: "Newport Landing is ideally positioned to take advantage of the annual Grey whale migration, which brings hundreds of Grey Whales along the Laguna Beach.",
+  description: "Newport Landing is ideally positioned to take advantage of the annual Grey whale migration, which brings hundreds of Grey Whales along the Laguna Beach (largest marine protected parks).",
   duration: 120,
   price: 34.to_f,
   code_image: "027"
@@ -345,7 +344,7 @@ ACTIVITIES = [{
   longitude: -122.2895309,
   latitude: 38.2973345,
   category: 'Excursion',
-  description: "For one of the best wine tours in the country from San Francisco, combine a visit to Northern California's wine country with an experience at Muir Woods for a fabulous day out.",
+  description: "For one of the best wine tours in the country from San Francisco, combine a visit to Northern California's wine country with an experience at Muir Woods for a fabulous day (popular tours).",
   duration: 360,
   price: 260.to_f,
   code_image: "028"
@@ -357,7 +356,7 @@ ACTIVITIES = [{
   longitude: -121.931724,
   latitude: 36.563562,
   category: 'Scenic drive',
-  description: "Drive the scenic Pacific Coast Highway to the Monterey Peninsula on this full-day trip from San Francisco, seeing Carmel and Pebble Beach Golf Course!",
+  description: "Drive the scenic Pacific Coast Highway to the Monterey Peninsula on this full-day trip from San Francisco, seeing Carmel and Pebble Beach Golf Course! Famous for its spectacular view.",
   duration: 660,
   price: 74.to_f,
   code_image: "029"
@@ -370,14 +369,14 @@ ACTIVITIES = [{
   longitude: -118.327857,
   latitude: 33.343317,
   category: 'Extreme sport',
-  description: "Experience the thrill of soaring 600 feet above sea level through several high-speed zip lines on this incredible Catalina Island zip line eco-tour. .",
+  description: "Experience the thrill of soaring 600 feet above sea level through several high-speed zip lines on this incredible Catalina Island zip line eco-tour. Travel over 5 consecutive zip lines.",
   duration: 120,
   price: 230.to_f,
   code_image: "030"
   },
  ]
 
- puts "creating activities :"
+ puts "creating activities"
 ACTIVITIES.each do |activity|
   Activity.create!(activity)
  end
