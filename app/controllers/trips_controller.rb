@@ -24,6 +24,7 @@ class TripsController < ApplicationController
 
   def create
     @trip = Trip.new(trip_params)
+    @trip.duration = @trip.end_date - @trip.start_date
     @trip.destination = "California"
     authorize @trip
     @trip.user = current_user
@@ -214,7 +215,7 @@ class TripsController < ApplicationController
   end
 
   def trip_params
-    params.require(:trip).permit(:start_date, :duration, :destination, :nb_people)
+    params.require(:trip).permit(:start_date, :end_date, :destination, :nb_people)
   end
 
   def find_hotel(day)

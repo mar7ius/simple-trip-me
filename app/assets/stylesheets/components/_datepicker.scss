@@ -1,0 +1,68 @@
+// .datepicker > input {
+//   background-color: white;
+//   color: #5F738C;
+// }
+input.form-control.string.optional.datepicker.input {
+  border-radius: 15px;
+  cursor: pointer;
+}
+
+.form-control:disabled, .form-control[readonly] {
+  background-color: white;
+  color: #5F738C;
+}
+
+.flatpickr-months .flatpickr-month {
+    border-radius: 15px 15px 0 0;
+    background: $koral;
+
+}
+
+.flatpickr-current-month .flatpickr-monthDropdown-months {
+  background: $koral;
+}
+
+.flatpickr-weekdays {
+  background: $koral;
+}
+
+span.flatpickr-weekday {
+  background: $koral;
+}
+
+.flatpickr-days {
+  border-left: none;
+  border-color: none;
+}
+
+.flatpickr-innerContainer {
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+    border-bottom: none;
+}
+
+.flatpickr-calendar.arrowTop:after {
+    border-bottom-color: $koral;
+}
+
+.arrowTop.arrowLeft.rightMost {
+  // background-color: $koral;
+  border: none;
+}
+input#range_end {
+    border-radius: 15px;
+}
+
+.flatpickr-day.selected, .flatpickr-day.startRange, .flatpickr-day.endRange, .flatpickr-day.selected.inRange, .flatpickr-day.startRange.inRange, .flatpickr-day.endRange.inRange, .flatpickr-day.selected:focus, .flatpickr-day.startRange:focus, .flatpickr-day.endRange:focus, .flatpickr-day.selected:hover, .flatpickr-day.startRange:hover, .flatpickr-day.endRange:hover, .flatpickr-day.selected.prevMonthDay, .flatpickr-day.startRange.prevMonthDay, .flatpickr-day.endRange.prevMonthDay, .flatpickr-day.selected.nextMonthDay, .flatpickr-day.startRange.nextMonthDay, .flatpickr-day.endRange.nextMonthDay {
+    background: $koral;
+    box-shadow: none;
+    color: #fff;
+    border-color: $koral;
+}
+
+.flatpickr-day.selected, .flatpickr-day.startRange, .flatpickr-day.endRange, .flatpickr-day.selected.inRange, .flatpickr-day.startRange.inRange, .flatpickr-day.endRange.inRange, .flatpickr-day.selected:focus, .flatpickr-day.startRange:focus, .flatpickr-day.endRange:focus, .flatpickr-day.selected:hover, .flatpickr-day.startRange:hover, .flatpickr-day.endRange:hover, .flatpickr-day.selected.prevMonthDay, .flatpickr-day.startRange.prevMonthDay, .flatpickr-day.endRange.prevMonthDay, .flatpickr-day.selected.nextMonthDay, .flatpickr-day.startRange.nextMonthDay, .flatpickr-day.endRange.nextMonthDay {
+    background: $koral;
+    box-shadow: none;
+    color: #fff;
+    background: $koral;
+}

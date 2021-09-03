@@ -1,0 +1,54 @@
+.counter {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.nb-travelers {
+  font-size: 27px;
+}
+
+.counter-btn {
+    /* padding: 2px; */
+    display: flex;
+    background-color: $dark-green;
+    border-radius: 8px;
+    font-size: 11px;
+    width: 30px;
+    height: 30px;
+    /* text-align: center; */
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: nowrap;
+    cursor: pointer;
+}
+
+.minus-icn, .plus-icn {
+  color: white;
+}
+
+#minus {
+  opacity: 0.3;
+}
+
+#number {
+  font-size: 18px;
+}
+
+.number-div {
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: nowrap;
+  width: 40px;
+  height: 40px;
+}
+
+.counter-flex {
+  display: flex;
+  align-items: center;
+  margin-left: 10px;
+  margin-right: 10px;
+}

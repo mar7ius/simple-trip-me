@@ -1,7 +1,7 @@
 class Trip < ApplicationRecord
   AIRPORTS_ORIGIN = ["PAR", "TLS"]
   CITIES_ORIGIN = {
-    ["Madrid", "Barcelona"].sort! => "Espagna",
+    ["Madrid", "Barcelona"].sort! => "Spain",
     ["Paris", "Lyon", "Bordeaux", "Toulouse", "Marseille"].sort! => "France",
     ["Berlin", "Frankfurt"].sort! => "Germany",
     ["London", "Manchester", "Liverpool", "Edimburg", "Glasgow"].sort! => "United Kingdom",
@@ -30,7 +30,7 @@ class Trip < ApplicationRecord
   has_many :flights, through: :trip_flights
   # has_many :departure, through: :flights
 
-  validates :start_date, :duration, :destination, presence: true
+  validates :start_date, :end_date, :destination, presence: true
   # validates :, inclusion: { in: AIRPORTS }
 
   def price
