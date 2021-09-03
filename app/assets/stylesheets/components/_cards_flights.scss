@@ -19,13 +19,24 @@
       }
     }
   }
+
+  &:hover + label {
+    opacity: 1;
+    border: none;
+    .bgSizeContain {
+      &:before {
+        filter: invert(62%) sepia(68%) saturate(2208%) hue-rotate(322deg) brightness(104%) contrast(98%);
+      }
+    }
+  }
+
 }
 
 .flight-selector + label {
   cursor: pointer;
   display: inline-block;
   margin-bottom: 20px;
-  opacity : 0.7;
+  opacity : 0.8;
 }
 
 .bgSizeContain {
@@ -77,7 +88,8 @@
 }
 
 .ticket-dates{
-  color: $turquoise;
+  color: $dark-green;
+  font-weight: 500;
   margin: 5px;
 }
 
@@ -87,8 +99,9 @@
   justify-content: center;
 
   span {
-    color: rgb(138, 130, 130);
+    color: $dark-green;
     padding: 1px;
+    font-weight: 500;
   }
 }
 .margin-to-plane {

@@ -47,3 +47,11 @@ body {
   background-color: #e6f7ee;
   opacity: 1;
 }
+
+.form-control:focus {
+    // color: #495057;
+    background-color: #fff;
+    border-color: $koral;
+    // outline: 0;
+    box-shadow: none
+}
