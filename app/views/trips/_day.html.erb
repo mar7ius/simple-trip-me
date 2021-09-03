@@ -12,10 +12,18 @@
             <% if step[:type] == "ride" %> <%#&& ((step[:from] || step[:to]) != "origin")><%>
               <% @activity_from = Activity.find(step[:from_id]) %>
               <% @activity_to = Activity.find(step[:to_id]) %>
+              <div>
+              <h3 style="margin: 40px 0px 0px 0px;"><i class="fas fa-car-side"></i><strong> From <%= @activity_from.name %> to <%= @activity_to.name %></strong></h3>
+              <h3 style="margin: 5px 0px 10px 0px;"><i class="far fa-clock"></i> <%= Time.at(step[:duration]).utc.strftime("%kh%M") %> </h3>
+              </div>
             <% end %>
+
+
+
             <% if step[:type] == "activity" && Activity.find(step[:id]) %>
               <% @activity = Activity.find(step[:id]) %>
-              <h2 style="margin: 40px 0px 10px 0px;"><strong>Activity</strong> <small> (Total duration: <%= Time.at(day[-2][:totalDayDuration]).utc.strftime("%kh%M")%>)</small></h2>
+
+              <h2 style="margin: 40px 0px 10px 0px;"><strong>Activity</strong></h2>
               <div class='accordion-card-activities'>
                 <div>
                   <%= image_tag "image_#{@activity.code_image}.png" %>
@@ -25,14 +33,18 @@
                   <h3 class="text"><strong> <%= @activity.name %></strong></h3>
                   <div class="duration-drive">
                     <p> <i style="padding-right: 4px;" class="far fa-clock"></i>  duration: <%= @activity.formatted_duration %></p>
-                    <p><i class="fas fa-car-side"></i>  drive: <%= Time.at(step[:duration]).utc.strftime("%kh%M") %> from <%= @activity_from.name %> to <%= @activity_to.name %></p>
+
                   </div>
                   <p class='text-desc'><%= @activity.description %></p>
                 </div>
               </div>
+
+
             <% end %>
+
+
           <% end %>
-          <h2 style="margin: 40px 0px 10px 0px;">Hotel</h2>
+          <h2 style="margin: 40px 0px 10px 0px;"><strong>Hotel</strong></h2>
           <div class='accordion-card-activities'>
             <div class="image-hotel" style="background-image: url(<%= @hotel.img_link %>);">
             </div>
@@ -46,6 +58,8 @@
             </div>
           </div>
         <%# </div> %>
+
+         <h3 style="margin: 40px 0px 40px 0px;"> Total duration: <%= Time.at(day[-2][:totalDayDuration]).utc.strftime("%kh%M")%></h3>
       </div>
     </div>
   </div>

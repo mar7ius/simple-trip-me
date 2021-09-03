@@ -133,7 +133,7 @@
   padding: 0;
   padding-top: 0;
   line-height: 17px;
-  box-shadow: 10px 5px 5px rgba(37, 88, 83, 0.2);
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
   margin-bottom: 15px;
 }
@@ -165,7 +165,7 @@
 .content-category {
   position: absolute;
   color: $turquoise;
-  box-shadow: 10px 5px 5px 5px rgba(37, 88, 83, 0.2);
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
   border-radius: 18px;
   padding: 10px;
   top: -13px;
