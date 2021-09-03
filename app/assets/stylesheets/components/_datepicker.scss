@@ -66,3 +66,7 @@ input#range_end {
     color: #fff;
     background: $koral;
 }
+
+.flatpickr-day.selected.startRange + .endRange:not(:nth-child(7n+1)), .flatpickr-day.startRange.startRange + .endRange:not(:nth-child(7n+1)), .flatpickr-day.endRange.startRange + .endRange:not(:nth-child(7n+1)) {
+  box-shadow: -10px 0 0 rgba(253, 123, 96, 0.43);
+}
