@@ -1,0 +1,53 @@
+// .datepicker > input {
+//   background-color: white;
+//   color: #5F738C;
+// }
+input.form-control.string.optional.datepicker.input {
+  border-radius: 15px;
+}
+
+.form-control:disabled, .form-control[readonly] {
+  background-color: white;
+  color: #5F738C;
+}
+
+.flatpickr-months .flatpickr-month {
+    border-radius: 15px 15px 0 0;
+    background: $koral;
+
+}
+
+.flatpickr-current-month .flatpickr-monthDropdown-months {
+  background: $koral;
+}
+
+.flatpickr-weekdays {
+  background: $koral;
+}
+
+span.flatpickr-weekday {
+  background: $koral;
+}
+
+.flatpickr-days {
+  border-left: none;
+  border-color: none;
+}
+
+.flatpickr-innerContainer {
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+    border-bottom: none;
+}
+
+.flatpickr-calendar.arrowTop:after {
+    border-bottom-color: $koral;
+}
+
+.arrowTop.arrowLeft.rightMost {
+  // background-color: $koral;
+  border: none;
+}
+input#range_end {
+    border-radius: 15px;
+}

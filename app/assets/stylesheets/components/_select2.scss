@@ -149,7 +149,7 @@
 }
 
 #select2-trip_departure_flight-container {
-  top: 0px;
+  top: -6px;
   left: 60px;
 }
 
@@ -166,7 +166,7 @@
 
 
 #select2-trip_arrival_flight-container {
-  top: 0px;
+  top: -6px;
   left: 40px;
 }
 
@@ -181,10 +181,14 @@
 .select2-results {
     display: block;
     overflow: auto;
-    height: 250px;
+    // height: 250px;
 }
 
 .select2-results__option.select2-results__message {
   color: $dark-green;
   text-align: center;
+}
+
+.select2-container .select2-selection--single {
+  height: 38px;
 }
