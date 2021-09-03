@@ -7,9 +7,9 @@ class Activity < ApplicationRecord
     hours = self.duration / 60
     minutes = self.duration % 60
     if minutes == 0
-      "#{ hours }h"
+      "#{hours}h"
     else
-      "#{ hours }h#{minutes }min"
+      "#{hours}h#{minutes}min"
     end
   end
 end

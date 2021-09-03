@@ -13,7 +13,8 @@
               <% @activity_from = Activity.find(step[:from_id]) %>
               <% @activity_to = Activity.find(step[:to_id]) %>
               <div>
-              <p><i class="fas fa-car-side"></i>  drive: <%= Time.at(step[:duration]).utc.strftime("%kh%M") %> from <%= @activity_from.name %> to <%= @activity_to.name %></p>
+              <h3 style="margin: 40px 0px 0px 0px;"><i class="fas fa-car-side"></i><strong> From <%= @activity_from.name %> to <%= @activity_to.name %></strong></h3>
+              <h3 style="margin: 5px 0px 10px 0px;"><i class="far fa-clock"></i> <%= Time.at(step[:duration]).utc.strftime("%kh%M") %> </h3>
               </div>
             <% end %>
 
@@ -58,7 +59,7 @@
           </div>
         <%# </div> %>
 
-         <h3> (Total duration: <%= Time.at(day[-2][:totalDayDuration]).utc.strftime("%kh%M")%>)</h3>
+         <h3 style="margin: 40px 0px 40px 0px;"> Total duration: <%= Time.at(day[-2][:totalDayDuration]).utc.strftime("%kh%M")%></h3>
       </div>
     </div>
   </div>
