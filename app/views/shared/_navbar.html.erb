@@ -15,14 +15,14 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav d-flex justify-content-between">
       <% if user_signed_in? %>
-      <li class="nav-item px-3">
+      <li class="nav-item pr-2">
         <%= link_to "Home", root_path, class: "nav-link" %>
       </li>
-      <li class="nav-item px-2" >
+      <li class="nav-item pr-2" >
         <%= link_to "Dashboard", dashboard_path, class: "nav-link"%>
       </li>
 
-      <li class="nav-item px-5">
+      <li class="nav-item pr-4">
         <%= link_to "My account", "#", class: "nav-link" %>
       </li>
       <li class="nav-item">
