@@ -7,9 +7,9 @@
 
     <div id="collapse<%= index %>" class="collapse <%= index == 0 ? 'show' : ''%>" aria-labelledby="heading<%= index %>" data-parent="#accordion">
       <div class="card-body">
-        <%# <div class="container py-2 d-flex"> %>
+
           <% day.each do |step| %>
-            <% if step[:type] == "ride" %> <%#&& ((step[:from] || step[:to]) != "origin")><%>
+            <% if step[:type] == "ride" %>
               <% @activity_from = Activity.find(step[:from_id]) %>
               <% @activity_to = Activity.find(step[:to_id]) %>
               <div>
