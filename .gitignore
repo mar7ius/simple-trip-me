@@ -39,3 +39,11 @@ yarn-debug.log*
 # Ignore Mac and Linux file system files
 *.swp
 .DS_Store
+
+# New ignore
+node_modules*
+Gemfile.lock*
+yarn.lock*
+Gemfile.lock
+yarn.lock
+*.lock*
